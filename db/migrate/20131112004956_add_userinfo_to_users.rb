@@ -5,6 +5,6 @@ class AddUserinfoToUsers < ActiveRecord::Migration
     add_column :users, :age, :int
     add_column :users, :admin, :boolean
     add_column :users, :banned, :boolean
-    add_column :users, :assesor_user_id, :int
+    add_column :users, :assessor_user_id, :int
   end
 end

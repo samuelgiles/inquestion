@@ -1,14 +1,41 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Inquestion</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+	<head>
+		<% if content_for?(:head) %>
+			<%= content_for(:head) %>
+		<% else %>
+		<title>inquestion</title>
+		<% end %>
+		<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+		<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+		<%= favicon_link_tag 'favicon.ico' %>
+		<%= csrf_meta_tags %>
+	</head>
+	<body>
 
-<%= yield %>
+	<header>
+		<%= link_to image_tag("logo.png", :alt => 'inquestion', :id => "logo", :title => 'Back to Homepage'), :root %>
+		
+		<ul id="ask_or_answer">
+			<li class="answer"><a href="#">Answer Questions</a></li>
+			<li class="ask"><a href="#">Ask Questions</a></li>
+		</ul>
+		<div id="log_in_status">
+			<% if current_user %>
+			<a href="#">Logged in as <%=current_user.email%></a> - <%= link_to 'Logout', destroy_user_session_path %>
+			<% else %>
+				<%= link_to 'Login', new_user_session_path %>
+			<% end %>
+		</div>
 
-</body>
+	</header>
+
+	<div id="cover">
+		<%= image_tag("cover.jpg", :alt => 'inquestion - ask and answer questions', :id => "cover_image") %>
+		<h1>Answer</h1>
+	</div>
+
+	<%= yield %>
+
+	</body>
 </html>

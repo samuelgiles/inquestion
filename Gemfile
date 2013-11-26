@@ -8,9 +8,6 @@ gem 'sqlite3'
 
 gem 'devise', :git => 'git://github.com/plataformatec/devise.git'
 
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
-
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
@@ -23,7 +20,7 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
-gem 'acts_as_commentable_with_threading'
+gem 'acts_as_commentable_with_threading', :git => 'git://github.com/petergoldstein/acts_as_commentable_with_threading', :ref => '531c957fa423a5107f78104720e845e73a11d92f'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -35,6 +32,10 @@ group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
+
+gem 'therubyracer' # Ruby
+gem 'less-rails'
+gem 'normalize-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
