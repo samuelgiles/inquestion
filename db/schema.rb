@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131112011723) do
+ActiveRecord::Schema.define(version: 20131127224220) do
 
   create_table "answers", force: true do |t|
     t.string   "content"
@@ -100,6 +100,9 @@ ActiveRecord::Schema.define(version: 20131112011723) do
     t.boolean  "admin"
     t.boolean  "banned"
     t.integer  "assessor_user_id"
+    t.string   "employerName"
+    t.string   "employerAddress"
+    t.string   "notes"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
