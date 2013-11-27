@@ -1,3 +1,15 @@
 <% content_for :head do %>
   <title>inquestion - Home</title>
 <% end %>
+<% content_for :cover do %>
+Dev
+<% end %>
+
+<div class="col-element ask">
+	<h3>Dev</h3>
+	<ul class="info">
+		<li><span><%= @userCount%></span> users</li>
+		<li><span><%= @questionCount%></span> questions</li>
+		<li><span><%= @answerCount%></span> answers</li>
+	</ul>
+</div>

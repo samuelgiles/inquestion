@@ -4,6 +4,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def index
+  	@userCount = User.count
+  	@questionCount = Question.count
+  	@answerCount = Answer.count
   end
 
   #Empty action just for a page full of every element on the site for CSS purposes

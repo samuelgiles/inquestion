@@ -29,13 +29,18 @@
 		</div>
 
 	</header>
-
+	
+	<% @hasHeader = content_for?(:cover) ? "" : "has-no-cover" %>
+	<% if content_for?(:cover) %>
 	<div id="cover">
 		<%= image_tag("cover.jpg", :alt => 'inquestion - ask and answer questions', :id => "cover_image") %>
-		<h1>Answer</h1>
+		<h1><%= content_for(:cover) %></h1>
 	</div>
-
-	<%= yield %>
+	<% end %>
+	
+	<div id="main" class="<%=@hasHeader %>">
+		<%= yield %>
+	</div>
 
 	</body>
 </html>

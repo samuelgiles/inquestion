@@ -1,6 +1,10 @@
 <% content_for :head do %>
   <title>inquestion - Elements</title>
 <% end %>
+<% content_for :cover do %>
+Elements
+<% end %>
+
 
 <div class="show_row">
 	<div class="row">
@@ -39,12 +43,36 @@
 	<div class="row">
 		<div class="col12">A</div>
 	</div>
+
+	<div class="row">
+		<div class="col12">A</div>
+	</div>
+
+	<div class="row">
+		<div class="col1">A</div>
+		<div class="col1">A</div>
+		<div class="col1">A</div>
+		<div class="col1">A</div>
+		<div class="col1">A</div>
+		<div class="col1">A</div>
+		<div class="col1">A</div>
+		<div class="col1">A</div>
+		<div class="col1">A</div>
+		<div class="col1">A</div>
+		<div class="col1">A</div>
+		<div class="col1">A</div>
+	</div>
+
+	<div class="row">
+		<div class="col1 push11">A</div>
+	</div>
+
 </div>
 
 <div class="row">
 	<div class="col6">
 		
-		<div class="has-header answer has-option">
+		<div class="col-element has-header answer has-option">
 			<h2>Answer</h2>
 			<a href="#" class="header_option">Popular <i class="icon icon-arrow-down"></i></a>
 
@@ -94,10 +122,47 @@
 			</ul>
 		</div>
 
+		<div class="col-element answer">
+			<h3>Popular Tags</h3>
+			<ul class="tags">
+				<li><a href="#">#unit22 <span>[202]</span></a></li>
+				<li><a href="#">#unit22 <span>[202]</span></a></li>
+				<li><a href="#">#unit22 <span>[202]</span></a></li>
+				<li><a href="#">#unit22 <span>[202]</span></a></li>
+				<li><a href="#">#unit22 <span>[202]</span></a></li>
+				<li><a href="#">#unit22 <span>[202]</span></a></li>
+				<li><a href="#">#unit22 <span>[202]</span></a></li>
+				<li><a href="#">#unit22 <span>[202]</span></a></li>
+				<li><a href="#">#unit22 <span>[202]</span></a></li>
+				<li><a href="#">#unit22 <span>[202]</span></a></li>
+				<li><a href="#">#unit22 <span>[202]</span></a></li>
+				<li><a href="#">#unit22 <span>[202]</span></a></li>
+				<li><a href="#">#unit22 <span>[202]</span></a></li>
+				<li><a href="#">#unit22 <span>[202]</span></a></li>
+			</ul>
+		</div>
+
 	</div>
 	<div class="col6">
-		<div class="has-header ask">
+
+		<div class="col-element has-header ask has-seperator">
 			<h2>Ask</h2>
+			<form class="form">
+				<input type="text" placeholder="Title" />
+				<input type="text" placeholder="Tags" />
+				<textarea placeholder="Question"></textarea>
+				<button class="ask" type="submit">Ask Question</button>
+			</form>
 		</div>
+
+		<div class="col-element ask">
+			<h3>Statistics</h3>
+			<ul class="info">
+				<li><span>52</span> online users</li>
+				<li><span>226</span> answered questions</li>
+				<li><span>525</span> unanswered questions</li>
+			</ul>
+		</div>
+
 	</div>
 </div>
