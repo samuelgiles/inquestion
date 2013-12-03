@@ -14,19 +14,33 @@
 	<body>
 
 	<header>
+
+		<div id="log_in_bar">
+			
+			<% if current_user %>
+			<div class="bar-left">
+				<a href="#">Logged in as <%=current_user.email%></a>
+			</div>
+			<div class="bar-right">
+				<a href="#" class="button">Admin</a>&nbsp;<a href="#" class="button ask">My Questions [5]</a>&nbsp;<a href="#" class="button answer">My Answers [20]</a>&nbsp;<a href="#" class="button">Notifications [5]</a>&nbsp;<%= link_to 'Options', destroy_user_session_path, :class => "button secondary" %>&nbsp;<%= link_to 'Logout', destroy_user_session_path, :class => "button secondary" %>
+			</div>
+			<% else %>
+				<div class="bar-left">
+					
+				</div>
+				<div class="bar-right">
+				<%= link_to 'Login to inquestion to ask and answer questions', new_user_session_path, :class => "" %>&nbsp;<%= link_to 'Login', new_user_session_path, :class => "button secondary" %>
+				</div>
+			<% end %>
+		</div>
+
 		<%= link_to image_tag("logo.png", :alt => 'inquestion', :id => "logo", :title => 'Back to Homepage'), :root %>
 		
 		<ul id="ask_or_answer">
 			<li class="answer"><a href="#">Answer Questions</a></li>
 			<li class="ask"><a href="#">Ask Questions</a></li>
 		</ul>
-		<div id="log_in_status">
-			<% if current_user %>
-			<a href="#">Logged in as <%=current_user.email%></a> - <%= link_to 'Logout', destroy_user_session_path %>
-			<% else %>
-				<%= link_to 'Login', new_user_session_path %>
-			<% end %>
-		</div>
+		
 
 	</header>
 	
