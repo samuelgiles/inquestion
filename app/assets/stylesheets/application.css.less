@@ -317,25 +317,56 @@ h4{
 }
 header{
 	position: relative;
-	padding-top: 15px;
+	padding-top: 0px;
 	padding-bottom: 18px;
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 	.clearfix();
 	#logo{
 		width: 33%;
 		margin-top: 5px;
 		float: left;
 	}
-	#log_in_status{
-		font-size: 13px;
+	#log_in_bar{
+		font-size: 12px;
 		display: block;
 		clear: both;
-		position: absolute;
-		right: 0px;
-		bottom: 0px;
+		background-color: @grey;
+		border-bottom: 3px solid darken(@grey, 3%);
+		text-align: right;
+		margin-top: 0px;
+		float: left;
+		margin-bottom: 15px;
+		width: 100%;
+		.clearfix();
 		a{
 			text-decoration: none;
-		color: @bodycolour;
+			color: #fff;
+		}
+		.button{
+			font-size: 12px;
+			display: inline-block;
+			color: #fff;
+			margin-bottom: 0px;
+			padding: 5px;
+		}
+
+		.bar-left, .bar-right{
+			float: left;
+			padding: 3px;
+		}
+		.bar-left{
+			width: 35%;
+			text-align: left;
+			a{
+				padding: 5px;
+				display:inline-block;
+				padding-left: 0px;
+			}
+			padding-left: 5px;
+		}
+		.bar-right{
+			width: 65%;
+			padding-right: 5px;
 		}
 	}
 	#ask_or_answer{
