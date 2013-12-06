@@ -1,3 +1,8 @@
 <h1><%= @question.title %></h1>
 <p><%= @question.content %></p>
 <p><%= @question.tag_list %></p>
+<%= form_for [@question, @newAnswer] do |f| %>
+
+	<%= render "answers/answer_fields", :f => f %>
+	
+<% end %>
