@@ -1,8 +1,47 @@
-<h1><%= @question.title %></h1>
-<p><%= @question.content %></p>
-<p><%= @question.tag_list %></p>
-<%= form_for [@question, @newAnswer] do |f| %>
+<div class="col6">
 
-	<%= render "answers/answer_fields", :f => f %>
+	<div class="col-element has-header ask has-seperator single-question question">
+		<h2 class="no-theme"><%= @question.title %></h2>
+		<p class="sub-header">asked by <%= (@question.user.forename + " " + @question.user.surname) %> at <%= @question.created_at.strftime("%H:%M on #{@question.created_at.day.ordinalize} %B %Y ")  %></p>
+		
+		<p><%= @question.content %></p>
+		
+		<ul class="question-tags">
+			<% @question.tags.each do |t| %>
+				<li><a href="#">#<%= t.title %></a></li>
+			<% end %>
+		</ul>
+
+	</div>
+
+</div>
+<div class="col6">
 	
-<% end %>
+	<div class="col-element answer has-header">
+		<h2>Answer this Question</h2>
+		<%= form_for [@question, @newAnswer] do |f| %>
+
+			<%= render "answers/answer_fields", :f => f %>
+
+		<% end %>
+	</div>
+
+	<div class="col-element answer has-seperator">
+		<h2>Answers</h2>
+		
+		<% if @question.answers.count == 0 %>
+		<p>Nobody has answered this question</p>
+		<% else %>
+			
+			<ul>
+			<% @question.answers.each do |a| %>
+				<li><p><%= a.content %></p></li>	
+			<% end %>
+			</ul>
+
+		<% end %>
+	</div>
+
+</div>
+
+
