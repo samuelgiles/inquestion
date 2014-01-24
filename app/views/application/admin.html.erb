@@ -1,0 +1,40 @@
+
+<%
+	#Things admin must have
+		#view student details
+		#
+%>
+<div class="row">
+	<div class="col8">
+		<div class="col-element ask has-header">
+			<h2>Admin</h2>
+			<ul class="info">
+				<li><span><%= online_users %></span> online <%= "user".pluralize(online_users) %></li>
+				<li><span>226</span> answered questions</li>
+				<li><span>525</span> unanswered questions</li>
+			</ul>
+			<hr>
+		</div>
+		<div class="col-element ask">
+			<h3>User sign ups per day</h3>
+			<%= line_chart User.group_by_day(:created_at).count %>
+
+		</div>
+		<div class="col-element ask">
+			<h3>Questions asked per day</h3>
+			<%= line_chart Question.group_by_day(:created_at).count %>
+		</div>
+		<div class="col-element ask">
+			<h3>Answers submitted per day</h3>
+			<%= line_chart Answer.group_by_day(:created_at).count %>
+		</div>
+	</div>
+	<div class="col4">
+		<div class="col-element answer has-header">
+			<h2>Actions</h2>
+			<button class="black btn-block">Add user</button>
+			<button class="black btn-block">View user</button>
+			<button class="black btn-block">Create question + answer</button>
+		</div>
+	</div>
+</div>

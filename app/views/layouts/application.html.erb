@@ -6,6 +6,7 @@
 		<% else %>
 		<title>inquestion</title>
 		<% end %>
+		<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
 		<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 		<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
 		<%= favicon_link_tag 'favicon.ico' %>
@@ -22,7 +23,7 @@
 				<a href="#">Logged in as <%=current_user.email%></a>
 			</div>
 			<div class="bar-right">
-				<a href="#" class="button">Admin</a>&nbsp;<a href="#" class="button ask">My Questions [5]</a>&nbsp;<a href="#" class="button answer">My Answers [20]</a>&nbsp;<a href="#" class="button">Notifications [5]</a>&nbsp;<%= link_to 'Options', destroy_user_session_path, :class => "button secondary" %>&nbsp;<%= link_to 'Logout', destroy_user_session_path, :class => "button secondary" %>
+				<%=link_to "Admin", :admin_index, class: "button" %>&nbsp;<a href="#" class="button ask">My Questions [5]</a>&nbsp;<a href="#" class="button answer">My Answers [20]</a>&nbsp;<a href="#" class="button">Notifications [5]</a>&nbsp;<%= link_to 'Options', destroy_user_session_path, :class => "button secondary" %>&nbsp;<%= link_to 'Logout', destroy_user_session_path, :class => "button secondary" %>
 			</div>
 			<% else %>
 				<div class="bar-left">
@@ -37,7 +38,7 @@
 		<%= link_to image_tag("logo.png", :alt => 'inquestion', :id => "logo", :title => 'Back to Homepage'), :root %>
 		
 		<ul id="ask_or_answer">
-			<li class="answer"><%= link_to "Answer Questions", :new_question  %></li>
+			<li class="answer"><%= link_to "Answer Questions", :questions  %></li>
 			<li class="ask"><%= link_to "Ask Questions", :new_question  %></li>
 		</ul>
 		

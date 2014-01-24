@@ -1,0 +1,15 @@
+<%= render layout: '/layouts/admin' do %>
+	<div class="col-element has-header question">
+		<h2 class="no-theme">Create Question + Answer</h2>
+		<p class="sub-header">You can post common question + answers using this tool</p>
+		
+		<%= form_for @question, :url => url_for(:controller => 'admin/questions', :action => 'create') do |f| %>
+		    <%= render "/questions/question_fields", :f => f %>
+		    <%= fields_for @answer do |answer| %>
+			<%= render "/answers/answer_fields", :f => answer %>
+		   	<% end %>
+		   	<%= f.submit :class => "ask", :value => "Create" %>
+		<% end %>
+		
+	</div>
+<% end %>

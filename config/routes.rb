@@ -25,6 +25,14 @@ Inquestion::Application.routes.draw do
   get 'about' => 'application#about', as: :about_page
   get 'terms' => 'application#terms', as: :terms_page
   get 'privacy' => 'application#privacy', as: :privacy_page
+  
+
+  namespace :admin do
+    get '/' => 'admin#admin', as: :index
+    resources :users
+    resources :questions
+  end
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
