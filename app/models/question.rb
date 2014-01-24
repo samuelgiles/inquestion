@@ -4,6 +4,7 @@ class Question < ActiveRecord::Base
 	has_many :answers
 	has_many :questiontags
 	has_many :tags, through: :questiontags
+	has_many :votes
 
 	def tag_list
 		tags.map(&:title).join(", ")
@@ -15,6 +16,16 @@ class Question < ActiveRecord::Base
     			t.user = self.user
     		end 
   		end
+	end
+
+	def answered
+
+		if self.answers.where(accepted: true).count > 0
+			return true
+		else
+			return false
+		end
+
 	end
 
 end
