@@ -23,7 +23,7 @@
 				<a href="#">Logged in as <%=current_user.email%></a>
 			</div>
 			<div class="bar-right">
-				<%=link_to "Admin", :admin_index, class: "button" %>&nbsp;<a href="#" class="button ask">My Questions [5]</a>&nbsp;<a href="#" class="button answer">My Answers [20]</a>&nbsp;<a href="#" class="button">Notifications [5]</a>&nbsp;<%= link_to 'Options', destroy_user_session_path, :class => "button secondary" %>&nbsp;<%= link_to 'Logout', destroy_user_session_path, :class => "button secondary" %>
+				<%=link_to "Admin", :admin_index, class: "button" %>&nbsp;<a href="#" class="button ask">My Questions [5]</a>&nbsp;<a href="#" class="button answer">My Answers [20]</a>&nbsp;<a href="#" class="button">Notifications [5]</a>&nbsp;<%= link_to 'Options', :edit_user_registration, :class => "button secondary" %>&nbsp;<%= link_to 'Logout', destroy_user_session_path, :class => "button secondary" %>
 			</div>
 			<% else %>
 				<div class="bar-left">
@@ -52,8 +52,13 @@
 		<h1><%= content_for(:cover) %></h1>
 	</div>
 	<% end %>
-	
+
 	<div id="main" class="<%=@hasHeader %>">
+		
+		<% if flash[:notice] %>
+		<div class="notice"><%= flash[:notice] %></div>
+		<% end %> 
+
 		<%= yield %>
 	</div>
 	

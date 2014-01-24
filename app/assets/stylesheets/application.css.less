@@ -514,6 +514,15 @@ ul.tags{
 	.has-seperator;
 	margin-bottom: 5px;
 }
+.notice{
+	font-size: 20px;
+	text-align: center;
+	background-color: @colourAsk;
+	color: #fff;
+	border-bottom: 8px solid darken(@colourAsk,5%);
+	padding: 8px;
+	margin-bottom: 18px;
+}
 form{
 	.clearfix();
 	div{
@@ -533,7 +542,7 @@ form{
 		display: block;
 		margin-bottom: 3px;
 	}
-	input,textarea{
+	input,textarea, select{
 		background-color: lighten(@bodycolour,70%);
 		width: 100%;
 		&::-webkit-input-placeholder {
