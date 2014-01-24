@@ -1,0 +1,24 @@
+<%= render layout: '/layouts/admin' do %>
+	<div class="col-element ask has-header">
+		<h2>Admin - Home</h2>
+		<ul class="info">
+			<li><span><%= online_users %></span> online <%= "user".pluralize(online_users) %></li>
+			<li><span>226</span> answered questions</li>
+			<li><span>525</span> unanswered questions</li>
+		</ul>
+		<hr>
+	</div>
+	<div class="col-element ask">
+		<h3>User sign ups per day</h3>
+		<%= line_chart User.group_by_day(:created_at).count %>
+
+	</div>
+	<div class="col-element ask">
+		<h3>Questions asked per day</h3>
+		<%= line_chart Question.group_by_day(:created_at).count %>
+	</div>
+	<div class="col-element ask">
+		<h3>Answers submitted per day</h3>
+		<%= line_chart Answer.group_by_day(:created_at).count %>
+	</div>
+<% end %>
