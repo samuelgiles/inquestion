@@ -14,3 +14,15 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(document).on('ready page:load', function () {
+
+}).on("page:change", function(){
+	$("#main").removeClass("animated fadeInDown fadeOutUp").addClass("animated fadeInDown");
+	NProgress.done();
+}).on("page:fetch", function(){
+	$("#main").removeClass("animated fadeInDown fadeOutUp").addClass("animated fadeOutUp");
+	NProgress.start();
+}).on('page:restore', function(){
+	NProgress.remove();
+});
