@@ -6,8 +6,6 @@ Inquestion::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
-  
-
   get 'elements' => 'application#elements'
 
   resources :questions do
@@ -21,7 +19,12 @@ Inquestion::Application.routes.draw do
 
   end
 
+  resources :tags
+
   root 'application#index'
+  get 'about' => 'application#about', as: :about_page
+  get 'terms' => 'application#terms', as: :terms_page
+  get 'privacy' => 'application#privacy', as: :privacy_page
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
