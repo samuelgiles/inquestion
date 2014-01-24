@@ -55,6 +55,16 @@
 	<div id="main" class="<%=@hasHeader %>">
 		<%= yield %>
 	</div>
+	
+	<footer>
+		<ul>
+			<li class="top"><a href="http://samuelgil.es"><%= image_tag("logo.png", :alt => 'inquestion', :id => "footer-logo", :title => 'inquestion') %> - developed by Samuel Giles</a></li>
+			<li><a href="http://samuelgil.es">About</a></li>
+			<li><a href="http://samuelgil.es">Terms and Conditions</a></li>
+			<li><a href="http://samuelgil.es">Privacy Policy</a></li>
+			<li><a href="https://github.com/samuelgiles/inquestion">Follow development on Github</a></li>
+		</ul>
+	</footer>
 
 	</body>
 </html>
