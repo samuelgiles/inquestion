@@ -37,6 +37,10 @@ gem 'therubyracer' # Ruby
 gem 'less-rails'
 gem 'normalize-rails'
 
+gem 'devise_lastseenable', :git => 'git://github.com/ctide/devise_lastseenable'
+
+gem 'groupdate', :git => 'git://github.com/mieko/groupdate/', :ref => 'f75a3d47a27a7351998555a5bfe532a7be9248ed'
+gem "chartkick"
 
 group :development do
   gem "better_errors"
