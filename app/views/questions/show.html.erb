@@ -6,6 +6,16 @@
 		
 		<p><%= @question.content %></p>
 		
+		<p class="question-votes-detail">
+			<%= pluralize(@question.votes.count, 'vote') %>- 
+			<% if @question.answered %>
+			Was this question + answer useful? 
+			<% else %>
+			Want this question answered? 
+			<% end %>
+			<a href="#">Click here to vote for it</a>
+		</p>
+
 		<ul class="question-tags">
 			<% @question.tags.each do |t| %>
 				<li><a href="#">#<%= t.title %></a></li>
@@ -33,9 +43,15 @@
 		<p>Nobody has answered this question</p>
 		<% else %>
 			
-			<ul>
+			<ul class="answers">
 			<% @question.answers.each do |a| %>
-				<li><p><%= a.content %></p></li>	
+				<% if a.content != nil %>
+					<li class="answer">
+						<a class="answer-votes" href="#">+<%= a.votecount %></a>
+						<p><%= a.content %></p>
+						<a href="#" class="answer-author">by <cite><%= a.user.forename + " " + a.user.surname %></cite></a>
+					</li>	
+				<% end %>
 			<% end %>
 			</ul>
 
