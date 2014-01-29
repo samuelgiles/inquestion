@@ -17,6 +17,11 @@
 
 $(document).on('ready page:load', function () {
 
+	$(".selectize").selectize({
+		highlight: true,
+		create: false
+	});
+
 }).on("page:change", function(){
 	$("#main").removeClass("animated fadeInDown fadeOutUp").addClass("animated fadeInDown");
 	NProgress.done();
