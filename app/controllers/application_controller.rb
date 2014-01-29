@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) << :assessor_user_id
+    devise_parameter_sanitizer.for(:sign_up) << [:assessor_user_id, :forename, :surname, :age, :employerName, :employerAddress]
     devise_parameter_sanitizer.for(:account_update) << :assessor_user_id
   end
 
