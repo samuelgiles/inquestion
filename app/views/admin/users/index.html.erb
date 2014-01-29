@@ -1,0 +1,51 @@
+<%= render layout: '/layouts/admin' do %>
+	<div class="col-element has-header question ask col-form">
+		<h2 class="">Admin - View User</h2>
+		<div id="search">
+		<select class="selectize" placeholder="Search for a user">
+			<% User.all.each do |u| %>
+				<option value="<%= u.id %>"><%= u.forename %> <%= u.surname %></option>
+			<% end %>
+		</select>
+		</div>
+	</div>
+	<div id="view" class="row">
+		<div class="col6">
+			
+			<h3>Personal Details</h3>
+			<dl>
+				<dt>Name</dt>
+					<dd>Samuel Giles</dd>
+				<dt>Email</dt>
+					<dd>livelikeasam@googlemail.com</dd>
+				<dt>Last Seen</dt>
+					<dd>2 days ago</dd>
+				<dt>Age</dt>
+					<dd>20 Years Old</dd>
+				<dt>Admin?</dt>
+					<dd>Yes</dd>	
+			</dl>
+
+		</div>
+		<div class="col6">
+			
+			<h3>Employer Details</h3>
+			<dl>
+				<dt>Name</dt>
+					<dd>Ziontech Solutions Ltd</dd>
+				<dt>Employed Since</dt>
+					<dd>04/06/2010</dd>
+				<dt>Phone</dt>
+					<dd>01935 424254</dd>
+				<dt>Address</dt>
+					<dd>Unit 1 Ziontech Solutions,<br>Yeovil Small Business,<br>Yeovil,<br>BA22 8WA</dd>	
+				<dt>Notes</dt>
+					<dd>Bit of an asshole</dd>	
+			</dl>
+
+		</div>
+	</div>
+	<div class="col-element has-header question ask">
+		<button class="btn-block">Edit User</button>
+	</div>
+<% end %>
