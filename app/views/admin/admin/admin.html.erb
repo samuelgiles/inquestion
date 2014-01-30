@@ -8,6 +8,10 @@
 		</ul>
 		<hr>
 	</div>
+	<div class="col-element answer">
+		<h3>Questions over time</h3>
+		<%= line_chart [{:name => "Questions", :data => @questions_over_time},{:name => "Answers", :data => @answers_over_time}] %>
+	</div>
 	<div class="col-element ask">
 		<h3>User sign ups per day</h3>
 		<%= line_chart User.group_by_day(:created_at).count %>

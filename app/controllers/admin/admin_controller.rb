@@ -1,7 +1,11 @@
 class Admin::AdminController < ApplicationController
 
+	def admin
+		sum=0
+		@questions_over_time = Question.group_by_day(:created_at).count.to_a.sort{|x,y| x[0] <=> y[0]}.map { |x,y| { x => (sum += y)} }.reduce({}, :merge)
 
-	def index
+		sum=0
+		@answers_over_time = Answer.group_by_day(:created_at).count.to_a.sort{|x,y| x[0] <=> y[0]}.map { |x,y| { x => (sum += y)} }.reduce({}, :merge)
 	end
 
 	before_filter :allowed?
