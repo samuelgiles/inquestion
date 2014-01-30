@@ -9,4 +9,9 @@ class User < ActiveRecord::Base
   has_many :notifytags
   belongs_to :assessor, :class_name => "User", :foreign_key => "assessor_user_id"
   has_many :students, :class_name => "User", :foreign_key => "assessor_user_id"
+
+  def last_seen_in_days
+    time_ago_in_words(self.last_seen)
+  end
+
 end

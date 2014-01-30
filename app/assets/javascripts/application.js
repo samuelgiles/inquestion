@@ -41,6 +41,17 @@ function inquestion_admin(){
 			url: ("/admin/users/" + parseFloat(userid)),
 			success: function(data){
 				
+				$("#admin-user-name").html(data.forename + " " + data.surname);
+				$("#admin-user-email").html(data.email);
+				$("#admin-user-lastseen").html(data.last_seen_in_days);
+				$("#admin-user-yearsold").html(data.age);
+				$("#admin-user-admin").html(data.admin ? "Yes" : "No");
+				$("#admin-user-employername").html(data.employerName);
+				$("#admin-user-employeraddress").html(data.employerAddress);
+				$("#admin-user-employerphone").html(data.employerPhone);
+				$("#admin-user-notes").html(data.notes);
+
+				$("#view dd:empty").html("----")
 			}
 		})
 	}
