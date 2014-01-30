@@ -12,25 +12,38 @@
     <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
       <%= devise_error_messages! %>
 
-      <div><%= f.label :email %>
-      <%= f.email_field :email, :autofocus => true %></div>
+        <div><%= f.label :forename %>
+        <%= f.text_field :forename, :autofocus => true %></div>
 
-      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-      <% end %>
+        <div><%= f.label :surname %>
+        <%= f.text_field :surname %></div>
 
-      <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i>
-      <%= f.password_field :password, :autocomplete => "off" %></div>
+        <div><%= f.label :email %>
+        <%= f.email_field :email %></div>
 
-      <div><%= f.label :password_confirmation %>
-      <%= f.password_field :password_confirmation %></div>
+        <div><%= f.label :employerName, "Employer Name" %>
+        <%= f.text_field :employerName %></div>
 
-      <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i>
-      <%= f.password_field :current_password %></div>
-  
-      <div><%= f.label :assessor %>
-      <%= f.collection_select(:assessor_user_id, User.where(:admin => true), :id, :forename, {include_blank: 'Please select your assessor'}) %></div>
-      <div><%= f.submit "Update", class: "ask" %></div>
+        <div><%= f.label :employerAddress, "Employer Address" %>
+        <%= f.text_area :employerAddress %></div>
+
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+        <% end %>
+
+        <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i>
+        <%= f.password_field :password, :autocomplete => "off" %></div>
+
+        <div><%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation %></div>
+
+        <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i>
+        <%= f.password_field :current_password %></div>
+    
+        <div><%= f.label :assessor %>
+        <%= f.collection_select(:assessor_user_id, User.where(:admin => true), :id, :forename, {include_blank: 'Please select your assessor'}) %></div>
+
+        <div><%= f.submit "Update", class: "ask" %></div>
     <% end %>
 
     <hr>
