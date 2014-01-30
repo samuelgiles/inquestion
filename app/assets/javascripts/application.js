@@ -15,12 +15,48 @@
 //= require turbolinks
 //= require_tree .
 
+function inquestion_admin(){
+	
+	var self = this;
+
+	self.init = function(){
+
+		if($("#admin-user-search").length > 0){
+
+			$("#admin-user-search").selectize({
+			    highlight: true,
+			    create: false,
+			    onItemAdd: function(value) {
+			        self.findUser(value);
+			    }
+			});
+
+		}
+
+	}
+	self.findUser = function(userid)
+	{
+		$.ajax({
+			type: "GET",
+			url: ("/admin/users/" + parseFloat(userid)),
+			success: function(data){
+				
+			}
+		})
+	}
+
+}
+
+var inquestionAdmin = new inquestion_admin();
+
 $(document).on('ready page:load', function () {
 
 	$(".selectize").selectize({
 		highlight: true,
 		create: false
 	});
+
+	inquestionAdmin.init();
 
 }).on("page:change", function(){
 	$("#main").removeClass("animated fadeInDown fadeOutUp").addClass("animated fadeInDown");
