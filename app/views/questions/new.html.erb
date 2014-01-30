@@ -1,4 +1,43 @@
-<%= form_for @question do |f| %>
-    <%= render "question_fields", :f => f %>
-    <%= f.submit :class => "ask", :value => "Ask Question" %>
+<% content_for :head do %>
+  <title>inquestion - Ask a Question</title>
 <% end %>
+
+<div class="col7">
+	<h2>Ask a Question</h2>
+	<p>Tell us about your question, we'll try to find similar questions as you type it</p>
+	<%= form_for @question do |f| %>
+	    <%= render "question_fields", :f => f %>
+	    <%= f.submit :class => "ask", :value => "Ask Question" %>
+	<% end %>
+</div>
+<div class="col5">
+
+	<div class="col-element has-header ask">
+		<h3>Similar Accepted Answers</h3>
+		<ul class="answers">
+			<li class="answer">
+				<a href="#" class="answer-votes">+22</a>
+				<p>Hello this is a fairly long answer to the following question...</p>
+			</li>
+			<li class="answer">
+				<a href="#" class="answer-votes">+0</a>
+				<p>Hello this is a fairly long answer to the following question...</p>
+			</li>
+		</ul>
+	</div>
+	<div class="col-element has-header answer">
+		<h3>Similar Questions</h3>
+		<ul class="question_list">
+			<li class="question">
+				<div class="question-top">
+					<a class="question-votes" href="#">+53</a><h3><a href="#">What does SMB stand for?</a></h3>
+				</div>
+			</li>
+			<li class="question">
+				<div class="question-top">
+					<a class="question-votes" href="#">+53</a><h3><a href="#">What does SMB stand for?</a></h3>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
