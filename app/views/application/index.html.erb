@@ -2,14 +2,26 @@
   <title>inquestion - Home</title>
 <% end %>
 <% content_for :cover do %>
-Dev
+Welcome to inquestion
 <% end %>
 
-<div class="col-element ask">
-	<h3>Dev</h3>
-	<ul class="info">
-		<li><span><%= @userCount%></span> users</li>
-		<li><span><%= @questionCount%></span> questions</li>
-		<li><span><%= @answerCount%></span> answers</li>
-	</ul>
+<div class="col9">
+	<h2>inquestion is a question and answer community designed to make asking questions a faster, easier process</h2>
+	<p>Instead of asking 1 person your asking a whole body of people, each with their own specific areas of expertise with the idea that the question will be answered quickly with a high quality answer.</p>
+	<p>Users are notified of questions posted in their areas of expertise, you won't be left waiting for your answer.</p>
+	<p><%= link_to "Find out more about inquestion", :about_page %>
+</div>
+
+<div class="col3">
+	<div class="col-element has-header answer has-option">
+		<h4>Current Popular Tags:</h4>
+		<ul class="feature-list">
+			<li>#unit22</li>
+			<li>#oop</li>
+			<li>#programming</li>
+			<li>#activex</li>
+			<li>#javascript</li>
+			<li>#html</li>
+		</ul>
+	</div>
 </div>
