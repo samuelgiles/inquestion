@@ -1,5 +1,7 @@
 class AnswersController < ApplicationController
 
+	before_action :authenticate_user!, :only => [:create, :new, :myanswers, :accept, :unvote, :vote, :remove]
+
 	#don't think there is a new...
 	def new
 

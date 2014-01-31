@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
-  
+  before_action :authenticate_user!, :only => [:create, :new, :myquestions]
+
   def new
 
   	@question = Question.new
@@ -20,6 +21,17 @@ class QuestionsController < ApplicationController
 
   	@question = Question.find(params[:id])
     @newAnswer = @question.answers.build
+
+  end
+
+  #show all the questions a user has asked
+  def myquestions
+  end
+
+  #display all
+  def index
+
+    @popularQuestions = Question.all
 
   end
 
