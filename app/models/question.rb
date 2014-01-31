@@ -1,5 +1,5 @@
 class Question < ActiveRecord::Base
-
+	
 	belongs_to :user
 	has_many :answers
 	has_many :questiontags
@@ -15,6 +15,15 @@ class Question < ActiveRecord::Base
     		Tag.where(title: n.strip).first_or_create do |t|
     			t.user = self.user
     		end 
+  		end
+
+  		self.tags.each do |ta|
+  			if ta.count == nil
+  				ta.count = 1
+  			else
+  				ta.count += 1
+  			end
+  			ta.save
   		end
 	end
 
