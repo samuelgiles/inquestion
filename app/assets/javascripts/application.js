@@ -40,7 +40,7 @@ function inquestion_admin(){
 			type: "GET",
 			url: ("/admin/users/" + parseFloat(userid)),
 			success: function(data){
-				
+
 				$("#admin-user-name").html(data.forename + " " + data.surname);
 				$("#admin-user-email").html(data.email);
 				$("#admin-user-lastseen").html(data.last_seen_in_days);
@@ -60,6 +60,42 @@ function inquestion_admin(){
 
 var inquestionAdmin = new inquestion_admin();
 
+function inquestion_frontend(){
+	
+	var self = this;
+
+	self.init = function(){
+
+		if($("#question-help").length > 0){
+
+			self.setupAsk();
+
+		}
+
+	}
+
+	//Setup the ask a question page
+	self.setupAsk = function(){
+
+		$("#question-similar-answers, #question-similar-questions").hide();
+		$("#new_question input, #new_question textarea").keydown(function(){
+			self.askSimilarLookup();
+		});
+
+	}
+
+	//Method that gets called every time a field changes in the ask a question form
+	//Gets potentially relevant questions and answers and displays them alongside the form
+	self.askSimilarLookup = function(){
+		$("#question-help").slideUp(400,function(){
+			$("#question-similar-answers, #question-similar-questions").fadeIn(1000);
+		})
+	}
+
+}
+
+var inquestionFrontend = new inquestion_frontend();
+
 $(document).on('ready page:load', function () {
 
 	$(".selectize").selectize({
@@ -68,6 +104,7 @@ $(document).on('ready page:load', function () {
 	});
 
 	inquestionAdmin.init();
+	inquestionFrontend.init();
 
 }).on("page:change", function(){
 	$("#main").removeClass("animated fadeInDown fadeOutUp").addClass("animated fadeInDown");
