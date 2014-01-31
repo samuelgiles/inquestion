@@ -10,7 +10,7 @@ class Admin::AdminController < ApplicationController
 
 	before_filter :allowed?
 	def allowed?
-		current_user.admin
+		redirect_to(root_path) unless current_user.admin?
 	end
 
 end
