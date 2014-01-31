@@ -16,12 +16,9 @@ Welcome to inquestion
 	<div class="col-element has-header answer has-option">
 		<h4>Current Popular Tags:</h4>
 		<ul class="feature-list">
-			<li>#unit22</li>
-			<li>#oop</li>
-			<li>#programming</li>
-			<li>#activex</li>
-			<li>#javascript</li>
-			<li>#html</li>
+			<% popular_tags.each do |tag| %>
+			<li>#<%= tag.title %></li>
+			<% end %>
 		</ul>
 	</div>
 </div>

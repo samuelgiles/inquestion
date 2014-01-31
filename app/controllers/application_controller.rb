@@ -26,6 +26,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :online_users
 
+  def popular_tags
+    @popular_tags = Tag.order(:count).limit(6).where('updated_at >= ?', 2.week.ago)
+  end
+  helper_method :popular_tags
+
   protected
 
   def configure_permitted_parameters
