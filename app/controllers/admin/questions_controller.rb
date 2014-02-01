@@ -16,8 +16,10 @@ class Admin::QuestionsController < Admin::AdminController
 		@answer = @question.answers.build
 		@answer.content = params[:answer][:content]
 		@answer.user = current_user
-		@answer.accepted = true
 		@answer.save
+
+		@question.accepted_answer = @answer
+		@question.save
 
 		redirect_to :new_admin_question, :notice => "Question + Answer successfully created"
 
