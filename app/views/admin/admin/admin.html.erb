@@ -3,8 +3,8 @@
 		<h2>Admin - Home</h2>
 		<ul class="info">
 			<li><span><%= online_users %></span> online <%= "user".pluralize(online_users) %></li>
-			<li><span>226</span> answered questions</li>
-			<li><span>525</span> unanswered questions</li>
+			<li><span><%=@answeredQuestionCount%></span> answered <%= "question".pluralize(@answeredQuestionCount) %></li>
+			<li><span><%=@unansweredQuestionCount%></span> unanswered <%= "question".pluralize(@unansweredQuestionCount) %></li>
 		</ul>
 		<hr>
 	</div>

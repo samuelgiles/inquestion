@@ -6,6 +6,9 @@ class Question < ActiveRecord::Base
 	has_many :tags, through: :questiontags
 	has_many :votes
 
+	scope :unanswered, lambda { joins(:answers).where(answers: { accepted: nil }) }
+	scope :answered, lambda { joins(:answers).where(answers: { accepted: true }) }
+
 	def tag_list
 		tags.map(&:title).join(", ")
 	end
