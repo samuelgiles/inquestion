@@ -46,7 +46,10 @@
 			<ul class="answers">
 			<% @question.answers.each do |a| %>
 				<% if a.content != nil %>
-					<li class="answer">
+					<li class="answer <%= a == @question.accepted_answer ? "accepted" : "" %>">
+						<% if a == @question.accepted_answer %>
+						<h2>ACCEPTED ANSWER</h2>
+						<% end %>
 						<a class="answer-votes" href="#">+<%= a.votecount %></a>
 						<p><%= a.content %></p>
 						<a href="#" class="answer-author">by <cite><%= a.user.forename + " " + a.user.surname %></cite></a>

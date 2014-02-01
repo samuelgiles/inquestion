@@ -764,6 +764,22 @@ dl{
 				font-style: normal
 			}
 		}
+		&.accepted{
+			background-color: @colourAsk;
+			color: #fff;
+			h2{
+				font-size: 14px;
+				color: #fff;
+				padding: 5px;
+				background-color: darken(@colourAsk,5%);
+			}
+			.answer-votes, .answer-author, p{
+				color: #fff;
+			}
+			.answer-votes{
+				padding-left: 5px;
+			}
+		}
 	}
 }
 footer{
