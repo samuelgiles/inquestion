@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140131100503) do
+ActiveRecord::Schema.define(version: 20140201211528) do
 
   create_table "answer_votes", force: true do |t|
     t.integer  "answer_id"
@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(version: 20140131100503) do
     t.string   "content"
     t.integer  "question_id"
     t.integer  "user_id"
-    t.boolean  "accepted"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -68,8 +67,10 @@ ActiveRecord::Schema.define(version: 20140131100503) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "answer_id"
   end
 
+  add_index "questions", ["answer_id"], name: "index_questions_on_answer_id"
   add_index "questions", ["user_id"], name: "index_questions_on_user_id"
 
   create_table "questiontags", force: true do |t|

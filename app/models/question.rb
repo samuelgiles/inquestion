@@ -2,12 +2,14 @@ class Question < ActiveRecord::Base
 	
 	belongs_to :user
 	has_many :answers
+	belongs_to :accepted_answer, :class_name => "Answer", :foreign_key => :answer_id
+
 	has_many :questiontags
 	has_many :tags, through: :questiontags
 	has_many :votes
 
-	scope :unanswered, lambda { joins(:answers).where(answers: { accepted: nil }) }
-	scope :answered, lambda { joins(:answers).where(answers: { accepted: true }) }
+	scope :unanswered, lambda { where(answer_id: nil) }
+	scope :answered, lambda { joins(:answers).where("answers.id == questions.answer_id") }
 
 	def tag_list
 		tags.map(&:title).join(", ")
@@ -32,11 +34,7 @@ class Question < ActiveRecord::Base
 
 	def answered
 
-		if self.answers.where(accepted: true).count > 0
-			return true
-		else
-			return false
-		end
+		return self.accepted_answer != nil
 
 	end
 
