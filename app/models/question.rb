@@ -9,7 +9,7 @@ class Question < ActiveRecord::Base
 	has_many :votes
 
 	scope :unanswered, lambda { where(answer_id: nil) }
-	scope :answered, lambda { joins(:answers).where("answers.id == questions.answer_id") }
+	scope :answered, lambda { joins(:answers).where("answers.id = questions.answer_id") }
 
 	def tag_list
 		tags.map(&:title).join(", ")
