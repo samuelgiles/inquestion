@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20140201211528) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "answer_votes", force: true do |t|
     t.integer  "answer_id"
     t.integer  "user_id"
@@ -20,8 +23,8 @@ ActiveRecord::Schema.define(version: 20140201211528) do
     t.datetime "updated_at"
   end
 
-  add_index "answer_votes", ["answer_id"], name: "index_answer_votes_on_answer_id"
-  add_index "answer_votes", ["user_id"], name: "index_answer_votes_on_user_id"
+  add_index "answer_votes", ["answer_id"], name: "index_answer_votes_on_answer_id", using: :btree
+  add_index "answer_votes", ["user_id"], name: "index_answer_votes_on_user_id", using: :btree
 
   create_table "answers", force: true do |t|
     t.string   "content"
@@ -31,8 +34,8 @@ ActiveRecord::Schema.define(version: 20140201211528) do
     t.datetime "updated_at"
   end
 
-  add_index "answers", ["question_id"], name: "index_answers_on_question_id"
-  add_index "answers", ["user_id"], name: "index_answers_on_user_id"
+  add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
+  add_index "answers", ["user_id"], name: "index_answers_on_user_id", using: :btree
 
   create_table "comments", force: true do |t|
     t.integer  "commentable_id",   default: 0
@@ -48,8 +51,8 @@ ActiveRecord::Schema.define(version: 20140201211528) do
     t.datetime "updated_at"
   end
 
-  add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
+  add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "notifytags", force: true do |t|
     t.integer  "user_id"
@@ -58,8 +61,8 @@ ActiveRecord::Schema.define(version: 20140201211528) do
     t.datetime "updated_at"
   end
 
-  add_index "notifytags", ["tag_id"], name: "index_notifytags_on_tag_id"
-  add_index "notifytags", ["user_id"], name: "index_notifytags_on_user_id"
+  add_index "notifytags", ["tag_id"], name: "index_notifytags_on_tag_id", using: :btree
+  add_index "notifytags", ["user_id"], name: "index_notifytags_on_user_id", using: :btree
 
   create_table "questions", force: true do |t|
     t.string   "title"
@@ -70,8 +73,8 @@ ActiveRecord::Schema.define(version: 20140201211528) do
     t.integer  "answer_id"
   end
 
-  add_index "questions", ["answer_id"], name: "index_questions_on_answer_id"
-  add_index "questions", ["user_id"], name: "index_questions_on_user_id"
+  add_index "questions", ["answer_id"], name: "index_questions_on_answer_id", using: :btree
+  add_index "questions", ["user_id"], name: "index_questions_on_user_id", using: :btree
 
   create_table "questiontags", force: true do |t|
     t.integer  "question_id"
@@ -80,8 +83,8 @@ ActiveRecord::Schema.define(version: 20140201211528) do
     t.datetime "updated_at"
   end
 
-  add_index "questiontags", ["question_id"], name: "index_questiontags_on_question_id"
-  add_index "questiontags", ["tag_id"], name: "index_questiontags_on_tag_id"
+  add_index "questiontags", ["question_id"], name: "index_questiontags_on_question_id", using: :btree
+  add_index "questiontags", ["tag_id"], name: "index_questiontags_on_tag_id", using: :btree
 
   create_table "tags", force: true do |t|
     t.string   "title"
@@ -91,7 +94,7 @@ ActiveRecord::Schema.define(version: 20140201211528) do
     t.integer  "count"
   end
 
-  add_index "tags", ["user_id"], name: "index_tags_on_user_id"
+  add_index "tags", ["user_id"], name: "index_tags_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -119,8 +122,8 @@ ActiveRecord::Schema.define(version: 20140201211528) do
     t.string   "employerPhone"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "votes", force: true do |t|
     t.integer  "question_id"
@@ -129,7 +132,7 @@ ActiveRecord::Schema.define(version: 20140201211528) do
     t.datetime "updated_at"
   end
 
-  add_index "votes", ["question_id"], name: "index_votes_on_question_id"
-  add_index "votes", ["user_id"], name: "index_votes_on_user_id"
+  add_index "votes", ["question_id"], name: "index_votes_on_question_id", using: :btree
+  add_index "votes", ["user_id"], name: "index_votes_on_user_id", using: :btree
 
 end
