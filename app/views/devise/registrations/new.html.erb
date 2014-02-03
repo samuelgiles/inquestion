@@ -34,7 +34,7 @@
 			<%= f.password_field :password_confirmation %></div>
 
 			<div><%= f.label :assessor %>
-			<%= f.collection_select(:assessor, User.where(:admin => true), :id, :forename, {include_blank: 'Please select your assessor'}) %></div>
+			<%= f.collection_select(:assessor, User.admins, :id, :forename, {include_blank: 'Please select your assessor'}) %></div>
 
 
 			<div><%= f.submit "Sign up" %></div>
