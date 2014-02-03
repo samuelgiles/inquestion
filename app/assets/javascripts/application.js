@@ -72,6 +72,8 @@ function inquestion_frontend(){
 
 		}
 
+		self.setupNotifications();
+
 	}
 
 	//Setup the ask a question page
@@ -90,6 +92,30 @@ function inquestion_frontend(){
 		$("#question-help").slideUp(400,function(){
 			$("#question-similar-answers, #question-similar-questions").fadeIn(1000);
 		})
+	}
+
+	self.setupNotifications = function(){
+
+		var popover = $("#notifications-popover");
+		//Hide notifications
+		$(popover).hide();
+		$("#notifications").click(function(event){
+
+			$(popover).show();
+			if($(popover).hasClass("active")){
+				$(popover).removeClass("animated bounceInDown bounceOutUp").addClass("animated bounceOutUp");
+				$(popover).removeClass("active");
+			}
+			else{
+				$(popover).removeClass("animated bounceInDown bounceOutUp").addClass("animated bounceInDown");
+				$(popover).addClass("active");
+			}
+
+			event.preventDefault();
+			return false;
+
+		});
+
 	}
 
 }
