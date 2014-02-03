@@ -20,6 +20,10 @@ class User < ActiveRecord::Base
     time_ago_in_words(self.last_seen)
   end
 
+  def full_name
+    "#{self.forename} #{self.surname}"
+  end
+
   #Notifies admins of new user sign ups
   after_create :create_new_user_notification
   def create_new_user_notification
