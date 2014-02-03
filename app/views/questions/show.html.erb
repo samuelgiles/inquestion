@@ -7,13 +7,8 @@
 		<p><%= @question.content %></p>
 		
 		<p class="question-votes-detail">
-			<%= pluralize(@question.votes.count, 'vote') %>- 
-			<% if @question.answered %>
-			Was this question + answer useful? 
-			<% else %>
-			Want this question answered? 
-			<% end %>
-			<a href="#">Click here to vote for it</a>
+			<%= pluralize(@question.votes.count, 'vote') %> 
+			<a href="#" class="btn ask">Click here to vote for this question <%= @question.answered ? " to be answered" : "" %></a>
 		</p>
 
 		<ul class="question-tags">
@@ -32,6 +27,7 @@
 		<%= form_for [@question, @newAnswer] do |f| %>
 
 			<%= render "answers/answer_fields", :f => f %>
+			<%= f.submit :class => "answer", :value => "Submit Answer" %>
 
 		<% end %>
 	</div>
