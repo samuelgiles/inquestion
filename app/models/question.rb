@@ -8,6 +8,10 @@ class Question < ActiveRecord::Base
 	has_many :tags, through: :questiontags
 	has_many :votes
 
+	validates :title, :presence => true
+  	validates :content, :presence => true
+  	validates :user, :presence => true
+
 	scope :unanswered, lambda { where(answer_id: nil) }
 	scope :answered, lambda { joins(:answers).where("answers.id = questions.answer_id") }
 

@@ -12,8 +12,11 @@ class QuestionsController < ApplicationController
   	@question = Question.new
   	@question.user = current_user
   	@question.update_attributes(question_params)
-  	@question.save
-  	redirect_to @question
+  	if @question.save
+  	 redirect_to @question
+    else
+      render "new"
+    end
 
   end
 

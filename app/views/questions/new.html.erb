@@ -6,6 +6,17 @@
 	<h2>Ask a Question</h2>
 	<p>Tell us about your question, we'll try to find similar questions as you type it</p>
 	<%= form_for @question do |f| %>
+		<% if @question.errors.any? %>
+			<div id="error_explanation">
+				<h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
+
+				<ul>
+					<% @question.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+					<% end %>
+				</ul>
+			</div>
+		<% end %>
 	    <%= render "question_fields", :f => f %>
 	    <%= f.submit :class => "ask", :value => "Ask Question" %>
 	<% end %>
