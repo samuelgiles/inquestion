@@ -1,15 +1,9 @@
 <div id="notifications-popover">
 	
-	<h3>Notifications</h3>
+	<h3>Notifications <a id="notifications-clear" href="#">Clear</a></h3>
 	<ul id="notifications-list">
 		
-		<% if notifications.length > 0 %>
-			<% notifications.each do |notification| %>
-			<%= render "notifications/notification", :notification => notification %>
-			<% end %>
-		<% else %>
-			<li><a href="#"><strong>You have no notifications</strong></a></li>
-		<% end %>
+		<%= render "notifications/notifications", :notifications => notifications %>
 
 	</ul>
 

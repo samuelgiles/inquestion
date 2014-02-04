@@ -72,7 +72,10 @@ function inquestion_frontend(){
 
 		}
 
-		self.setupNotifications();
+		self.notifications.setup();
+
+	}
+	self.oneInit = function(){
 
 	}
 
@@ -94,34 +97,127 @@ function inquestion_frontend(){
 		})
 	}
 
-	self.setupNotifications = function(){
+	self.notifications = {
+		currentCount: 0,
+		setup: function(){
 
-		var popover = $("#notifications-popover");
-		//Hide notifications
-		$(popover).hide();
-		$("#notifications").click(function(event){
+			var popover = $("#notifications-popover");
+			//Hide notifications
+			$(popover).hide();
 
-			$(popover).show();
-			if($(popover).hasClass("active")){
-				$(popover).removeClass("animated bounceInDown bounceOutUp").addClass("animated bounceOutUp");
-				$(popover).removeClass("active");
+			self.notifications.currentCount = $("li[data-notification-id]", "#notifications-popover ul").length
+			//Notifications button in header
+			$("#notifications").click(function(event){
+
+				$(popover).show();
+				if($(popover).hasClass("active")){
+					$(popover).removeClass("animated bounceInDown bounceOutUp").addClass("animated bounceOutUp");
+					$(popover).removeClass("active");
+				}
+				else{
+					$(popover).removeClass("animated bounceInDown bounceOutUp").addClass("animated bounceInDown");
+					$(popover).addClass("active");
+				}
+
+				event.preventDefault();
+				return false;
+
+			});
+			//Notifications clear button:
+			$("#notifications-clear").click(function(event){
+
+				var iCurrentDelay = 0;
+				var iCurrent = 0;
+				$("li", popover).each(function(){
+
+					
+					$(this).fadeIn(1).delay(iCurrentDelay).fadeIn(1,function(){
+						$(this).addClass("animated flipOutX")
+					}).slideUp(500, function(){
+						iCurrent++;
+						if(iCurrent == $("li", popover).length){
+							$("li", popover).remove();
+							var noNotifications = $("<li><a href=\"\"><strong>You have no notifications</strong></a></li>");
+							$("ul", popover).append(noNotifications);
+							$(noNotifications).hide().addClass("animated flipInX").slideDown(400);
+						}
+					});
+					
+					iCurrentDelay += 200;
+
+				});
+
+				self.notifications.clear();
+
+				event.preventDefault();
+				return false;
+			});
+
+			self.notifications.setTick();
+
+		},
+		setTick: function(){
+			window.clearInterval(window.inquestionNotificationInterval);
+			window.inquestionNotificationInterval = window.setInterval(function(){ inquestionFrontend.notifications.check(); }, 6000);
+		},
+		check: function(){
+			$.ajax({
+				type: "GET",
+				url: ("/notifications/check"),
+				success: function(data){
+					
+					if(data.notifications != self.notifications.currentCount){
+						self.notifications.fetch();
+					}
+
+				}
+			});
+		},
+		fetch: function(){
+			$.ajax({
+				type: "GET",
+				url: ("/notifications?js=true"),
+				success: function(data){
+
+					$("li", "#notifications-popover ul").remove();
+					$("ul", $("#notifications-popover")).append($(data));
+
+					self.notifications.currentCount = $("li[data-notification-id]", "#notifications-popover ul").length;
+					self.notifications.updateCurrentCountDisplay();
+					$("#notifications").removeClass("animated wobble").fadeIn(1).addClass("animated wobble");
+				}
+			});
+		},
+		updateCurrentCountDisplay: function(){
+			$("#notifications").text("Notifications [" + self.notifications.currentCount + "]")
+		},
+		clear: function(){
+
+			var clearIDList = []
+			$("li[data-notification-id]", "#notifications-popover ul").each(function(){
+				clearIDList.push(parseFloat($(this).data("notification-id")));
+			});
+
+			console.log(clearIDList);
+
+			if(clearIDList.length > 0){
+				$.ajax({
+					type: "POST",
+					data: {"notifications": clearIDList},
+					url: ("/notifications/clear"),
+					success: function(data){
+						self.notifications.currentCount = 0;
+						self.notifications.updateCurrentCountDisplay();
+					}
+				});
 			}
-			else{
-				$(popover).removeClass("animated bounceInDown bounceOutUp").addClass("animated bounceInDown");
-				$(popover).addClass("active");
-			}
 
-			event.preventDefault();
-			return false;
-
-		});
-
+		}
 	}
 
 }
 
 var inquestionFrontend = new inquestion_frontend();
-
 $(document).on('ready page:load', function () {
 
 	$(".selectize").selectize({

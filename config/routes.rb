@@ -26,6 +26,9 @@ Inquestion::Application.routes.draw do
   get 'terms' => 'application#terms', as: :terms_page
   get 'privacy' => 'application#privacy', as: :privacy_page
   
+  get 'notifications/check' => 'notifications#check', as: :notification_check
+  get 'notifications' => 'notifications#index', as: :notification_index
+  post 'notifications/clear' => 'notifications#clear', as: :notification_clear
 
   namespace :admin do
     get '/' => 'admin#admin', as: :index

@@ -1,0 +1,7 @@
+<% if notifications.length > 0 %>
+	<% notifications.each do |notification| %>
+	<%= render "notifications/notification", :notification => notification %>
+	<% end %>
+<% else %>
+	<li><a href="#"><strong>You have no notifications</strong></a></li>
+<% end %>
