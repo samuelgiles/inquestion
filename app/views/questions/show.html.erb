@@ -1,3 +1,11 @@
+<% content_for :opengraph do %>
+<meta property="og:title" content="<%= @question.title %>" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<%= truncate(@question.content, length: 297) %>" />
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="<%= @question.title %>">
+<meta name="twitter:description" content="<%= truncate(@question.content, length: 297) %>">
+<% end %>
 <div class="col6">
 
 	<div class="col-element has-header ask has-seperator single-question question">
