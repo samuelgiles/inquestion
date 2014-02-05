@@ -1,4 +1,5 @@
 class NotificationsController < ApplicationController
+	before_action :authenticate_user!, :only => [:check, :clear, :index]
 
 	def clear
 

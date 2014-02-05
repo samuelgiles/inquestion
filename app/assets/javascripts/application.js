@@ -72,7 +72,10 @@ function inquestion_frontend(){
 
 		}
 
-		self.notifications.setup();
+		if($("#notifications").length > 0){
+			self.notifications.setup();
+		}
+		
 
 	}
 	self.oneInit = function(){
