@@ -4,6 +4,16 @@
 		<p class="sub-header">You can post common question + answers using this tool. The answer will be marked as accepted, you will be the user that 'asked' and the user that 'answered' the question.</p>
 		
 		<%= form_for @question, :url => url_for(:controller => 'admin/questions', :action => 'create') do |f| %>
+		    <% if @question.errors.any? %>
+				<div id="error_explanation">
+					<h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
+					<ul>
+						<% @question.errors.full_messages.each do |msg| %>
+						<li><%= msg %></li>
+						<% end %>
+					</ul>
+				</div>
+			<% end %>
 		    <%= render "/questions/question_fields", :f => f %>
 		    <%= fields_for @answer do |answer| %>
 			<%= render "/answers/answer_fields", :f => answer %>
