@@ -198,7 +198,6 @@ function inquestion_frontend(){
 				clearIDList.push(parseFloat($(this).data("notification-id")));
 			});
 
-			console.log(clearIDList);
 
 			if(clearIDList.length > 0){
 				$.ajax({
