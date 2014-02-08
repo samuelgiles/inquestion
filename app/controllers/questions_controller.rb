@@ -13,7 +13,8 @@ class QuestionsController < ApplicationController
   	@question.user = current_user
   	@question.update_attributes(question_params)
   	if @question.save
-  	 redirect_to @question
+      Inquestion::Application.config.twitter.update("#{current_user.forename} posted a question on inquestion #{url_for @question}}")
+      redirect_to @question
     else
       render "new"
     end
