@@ -13,7 +13,10 @@ class QuestionsController < ApplicationController
   	@question.user = current_user
   	@question.update_attributes(question_params)
   	if @question.save
-      TwitterClient.update("#{current_user.forename} posted a question on inquestion #{url_for @question}")
+      #Randomly post questions on twitter
+      if rand(6) > 3
+        TwitterClient.update("#{current_user.forename} posted a question on inquestion #{url_for @question}")
+      end
       redirect_to @question
     else
       render "new"
