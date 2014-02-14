@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140203203203) do
+ActiveRecord::Schema.define(version: 20140214110217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,13 @@ ActiveRecord::Schema.define(version: 20140203203203) do
 
   add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
+  create_table "employers", force: true do |t|
+    t.string "name"
+    t.string "address"
+    t.string "phone"
+    t.string "notes"
+  end
 
   create_table "notifications", force: true do |t|
     t.string   "content"
@@ -127,14 +134,15 @@ ActiveRecord::Schema.define(version: 20140203203203) do
     t.boolean  "admin"
     t.boolean  "banned"
     t.integer  "assessor_user_id"
-    t.string   "employerName"
-    t.string   "employerAddress"
     t.string   "notes"
     t.datetime "last_seen"
-    t.string   "employerPhone"
+    t.integer  "employer_id"
+    t.boolean  "coordinator"
+    t.integer  "coordinator_user_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["employer_id"], name: "index_users_on_employer_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "votes", force: true do |t|

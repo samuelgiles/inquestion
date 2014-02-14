@@ -8,13 +8,19 @@ class User < ActiveRecord::Base
   has_many :answers
   has_many :tags, :foreign_key => 'user_id', :class_name => "Tag", :through => :notifytags
   has_many :notifytags
+  
   belongs_to :assessor, :class_name => "User", :foreign_key => "assessor_user_id"
-  has_many :students, :class_name => "User", :foreign_key => "assessor_user_id"
+  has_many :assessor_students, :class_name => "User", :foreign_key => "assessor_user_id"
+
+  belongs_to :coordinator, :class_name => "User", :foreign_key => "coordinator_user_id"
+  has_many :coordinator_students, :class_name => "User", :foreign_key => "coordinator_user_id"
 
   has_many :notifications
   has_many :authored_notifications, :class_name => "Notification", :foreign_key => "author_id"
 
-  scope :admins, lambda { where(admin: true) }
+  belongs_to :employer
+
+  scope :admins, lambda { where("users.admin = true OR users.coordinator = true") }
 
   def last_seen_in_days
     time_ago_in_words(self.last_seen)
@@ -24,16 +30,11 @@ class User < ActiveRecord::Base
     "#{self.forename} #{self.surname}"
   end
 
-  #Notifies admins of new user sign ups
+  #Notifies the assessor that a new user has signed up
   after_create :create_new_user_notification
   def create_new_user_notification
     
-    admins = User.admins
-    admins.each do |admin|
-
-      admin.notifications.create(:content => "has signed up", :author => self)
-
-    end
+    self.assessor.notifications.create(:content => "has signed up", :author => self)
 
   end
 
