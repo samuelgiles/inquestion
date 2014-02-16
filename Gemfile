@@ -39,6 +39,8 @@ gem 'groupdate', :git => 'git://github.com/mieko/groupdate/', :ref => 'f75a3d47a
 gem "chartkick"
 gem 'newrelic_rpm'
 gem 'twitter'
+gem 'best_in_place', :git => 'https://github.com/aaronchi/best_in_place.git'
+gem 'jquery-ui-rails'
 
 group :development do
   gem "better_errors"
