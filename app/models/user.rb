@@ -21,9 +21,32 @@ class User < ActiveRecord::Base
   belongs_to :employer
 
   scope :admins, lambda { where("users.admin = true OR users.coordinator = true") }
+  scope :coordinators, lambda { where("users.coordinator = true") }
 
   def last_seen_in_days
     time_ago_in_words(self.last_seen)
+  end
+
+  def friendly_start_date
+    self.start_date.strftime("%d/%m/%Y")
+  end
+
+  def friendly_end_date
+    self.end_date.strftime("%d/%m/%Y")
+  end
+
+  def is_admin
+
+    User.admins.find(self.id) != nil ? true : false
+
+  end
+
+  def coordinator_id
+    self.coordinator != nil ? self.coordinator.id : nil
+  end
+
+  def assessor_id
+    self.assessor != nil ? self.assessor.id : nil
   end
 
   def full_name
