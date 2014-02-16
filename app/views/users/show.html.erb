@@ -1,0 +1,82 @@
+<% content_for :head do %>
+  <title>inquestion - Home</title>
+<% end %>
+<% content_for :cover do %>
+Profile
+<% end %>
+
+<%
+#Full Name
+#Email
+#-Edit Button
+
+#Employer
+#Start Date
+#End Date
+#Program
+#Assessor
+#Coordinator
+
+#Questions
+#Answers
+%>
+
+<div class="col4">
+	<div class="col-element has-header answer">
+		<h2><%= @user.full_name %></h2>
+		<h4><%= best_in_place @user, :email %></h4>
+	</div>
+	<% if current_user.is_admin %>
+	<div class="col-element answer">
+		<h3>Notes</h3>
+		<%= best_in_place @user, :notes, type: :textarea %>
+	</div>
+	<% end %>
+	<div class="col-element answer">
+		<h3>Key Skills</h3>
+		<h3 class="no-theme">English: <%= best_in_place @user, :english, type: :select, collection: @keyskills_options %></h3>
+		<h3 class="no-theme">Maths: <%= best_in_place @user, :maths, type: :select, collection: @keyskills_options %></h3>
+		<h3 class="no-theme">IT: <%= best_in_place @user, :it, type: :select, collection: @keyskills_options %></h3>
+	</div>
+	<% if current_user.id == @user.id %>
+	<div class="col-element answer">
+		<%= link_to "Edit", :edit_user_registration, class: "btn answer" %>
+	</div>
+	<% end %>
+</div>
+<div class="col4">
+	
+	<div class="col-element has-header ask">
+		<h2>Employer</h2>
+		<h3 class="no-theme"><%= best_in_place @user, :employer, type: :select, collection: @employer_options %></h3>
+		<h4 class="no-theme">Since: <%= best_in_place @user, :start_date, type: :date, inner_class: "datepicker", display_as: :friendly_start_date %></h4>
+		<h4 class="no-theme">Until: <%= best_in_place @user, :end_date, type: :date, inner_class: "datepicker", display_as: :friendly_end_date %></h4>
+	</div>
+
+	<div class="col-element ask">
+		<h2>Assessor</h2>
+		<h3 class="no-theme"><%= best_in_place @user, :assessor_id, type: :select, collection: @assessor_options %></h3>
+	</div>
+	
+	<div class="col-element ask">
+		<h2>Coordinator</h2>
+		<h3 class="no-theme"><%= best_in_place @user, :coordinator, type: :select, collection: @coordinator_options %></h3>
+	</div>
+	
+</div>
+<div class="col4">
+	
+	<div class="col-element has-header ask">
+		<h2>Knowledge Areas</h2>
+		<ul class="feature-list knowledge-list" data-url="<%= update_knowledge_path %>">
+			<% @user.tags.each do |tag| %>
+			<li>#<%= tag.title %></li>
+			<% end %>
+		</ul>
+	</div>
+
+	<div class="col-element ask">
+		<a href="#" class="btn btn-block ask knowledge-list-btn">Change Knowledge Areas</a>
+	</div>
+	
+</div>
