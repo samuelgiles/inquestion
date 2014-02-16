@@ -36,7 +36,7 @@
 				<% if current_user.admin %>
 					<%=link_to "Admin", :admin_index, class: "button" %>&nbsp;
 				<% end %>
-				<a href="#" class="button ask">My Questions [5]</a>&nbsp;<a href="#" class="button answer">My Answers [20]</a>&nbsp;<a href="#" id="notifications" class="button">Notifications [<%= current_user.notifications.unseen.count %>]</a>&nbsp;<%= link_to 'Options', :edit_user_registration, :class => "button secondary" %>&nbsp;<%= link_to 'Logout', destroy_user_session_path, :class => "button secondary" %>
+				<a href="#" class="button ask">My Questions [5]</a>&nbsp;<a href="#" class="button answer">My Answers [20]</a>&nbsp;<a href="#" id="notifications" class="button">Notifications [<%= current_user.notifications.unseen.count %>]</a>&nbsp;<%= link_to 'Profile', user_path(current_user), :class => "button secondary" %>&nbsp;<%= link_to 'Logout', destroy_user_session_path, :class => "button secondary" %>
 			</div>
 			<% else %>
 				<div class="bar-left">

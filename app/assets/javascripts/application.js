@@ -13,7 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require best_in_place
+//= require best_in_place.purr
+//= require jquery.ui.datepicker
 //= require_tree .
+
 
 function inquestion_admin(){
 	
@@ -75,7 +79,14 @@ function inquestion_frontend(){
 		if($("#notifications").length > 0){
 			self.notifications.setup();
 		}
+
+		$('.best_in_place').best_in_place();
+		$.datepicker.setDefaults({
+		    dateFormat: 'dd/mm/yy'
+		});
+		$('.datepicker').datepicker();
 		
+		self.knowledgeAreas.init();
 
 	}
 	self.oneInit = function(){
@@ -213,6 +224,96 @@ function inquestion_frontend(){
 					}
 				});
 			}
+
+		}
+	}
+	self.knowledgeAreas = {
+		knowledgeList: null,
+		editMode: null,
+		init: function(){
+			//Run attach, sets the knowledgeList and the click event
+			self.knowledgeAreas.attach();
+			self.knowledgeAreas.editMode = false;
+		},
+		attach: function(){
+			self.knowledgeAreas.knowledgeList = $(".knowledge-list");
+			$(".knowledge-list-btn").click(function(){
+				//If not edit mode, then change to, otherwise save the current list:
+				if(self.knowledgeAreas.editMode){
+					self.knowledgeAreas.save();
+				}
+				else{
+					self.knowledgeAreas.changeToEdit();
+				}
+				event.preventDefault();
+				return false;
+			});
+		},
+		changeToEdit: function(){
+			//Add a input box below, change mode to true
+			self.knowledgeAreas.editMode = true;
+			$(".knowledge-list-btn").html("Save Knowledge Areas")
+			self.knowledgeAreas.addKnowledge();
+		},
+		addKnowledge: function(){
+			//Spawn a new input box and button
+			$(self.knowledgeAreas.knowledgeList).append("<li><form class=\"form\"><div class=\"form-control\"><input type=\"text\" name=\"knowledge-list-new\" placeholder=\"Add new area\"></input></div></form></li>");
+			var addKnowledgeButton = $("<li><button class=\"btn btn-block\">Add Knowledge Area</button></li>");
+			$(self.knowledgeAreas.knowledgeList).append($(addKnowledgeButton));
+			$("button", addKnowledgeButton).click(function(){
+
+				//Validation:
+				if($("input", self.knowledgeAreas.knowledgeList).val().length > 0){
+					//Add self to list
+					//-Remove hashtag incase user has entered it and get value into variable
+					var newArea = "#" + ($("input", self.knowledgeAreas.knowledgeList).val()).replace("#", "");
+					var newAreaListItem = $("<li></li>").text(newArea);
+					$(self.knowledgeAreas.knowledgeList).append($(newAreaListItem));
+
+					//Remove self
+					self.knowledgeAreas.removeKnowledgeInput();
+
+					//Repeat the process, add a new button
+					self.knowledgeAreas.addKnowledge();
+				}
+				
+				event.preventDefault();
+				return false;
+			});
+		},
+		removeKnowledgeInput: function(){
+			$("button", self.knowledgeAreas.knowledgeList).parent().remove();
+			$("input", self.knowledgeAreas.knowledgeList).parent().remove();
+		},
+		save: function(){
+			editMode = false;
+			self.knowledgeAreas.removeKnowledgeInput();
+			$(".knowledge-list-btn").html("Change Knowledge Areas");
+
+			//Turn ul into a list and remove hashes:
+			var knowledge = new Array();
+			var knowledgeListItems = $("li", self.knowledgeAreas.knowledgeList)
+
+			$(knowledgeListItems).each(function(){
+
+				if($(this).text().length > 0){
+					knowledge.push(($(this).text()).replace("#", ""))
+				}
+				
+			});
+
+			$.ajax({
+				type: "POST",
+				data: {"knowledge": knowledge},
+				url: ($(self.knowledgeAreas.knowledgeList).data("url")),
+				success: function(data){
+
+					console.log(data);
+					
+				}
+			})
+
+			
 
 		}
 	}
