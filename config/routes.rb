@@ -15,8 +15,9 @@ Inquestion::Application.routes.draw do
     resources :comments
   end
 
-  resources :users do
-
+  resources :users
+  resources :employers do
+    resources :users
   end
 
   resources :tags
@@ -26,6 +27,8 @@ Inquestion::Application.routes.draw do
   get 'terms' => 'application#terms', as: :terms_page
   get 'privacy' => 'application#privacy', as: :privacy_page
   
+  post 'users/:id/tags' => 'users#update_knowledge', as: :update_knowledge
+
   get 'notifications/check' => 'notifications#check', as: :notification_check
   get 'notifications' => 'notifications#index', as: :notification_index
   post 'notifications/clear' => 'notifications#clear', as: :notification_clear
@@ -34,6 +37,7 @@ Inquestion::Application.routes.draw do
     get '/' => 'admin#admin', as: :index
     resources :users
     resources :questions
+    resources :employers
   end
 
 

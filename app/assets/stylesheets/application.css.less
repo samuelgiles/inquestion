@@ -9,6 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require normalize-rails
+ *= require jquery.ui.datepicker
  *= require_self
  *= require_tree .
  */
@@ -163,6 +164,10 @@
 	}
 	
 //End Grid
+	
+	.col-element{
+		margin-bottom: 20px;
+	}
 
 //Common Variables:
 	@grey: #4c4c4c;
@@ -515,11 +520,49 @@ header{
 	font-weight: bold;
 	text-transform: uppercase;
 }
+.btn-small{
+	font-size: 0.9em;
+	padding: 10px;
+}
 .feature-list{
 	.ul-reset;
 	li{
 		font-size: 30px;
 		padding-bottom: 5px;
+	}
+}
+#employer-map{
+	height: 150px;
+	background-color: lighten(#4c4c4c,60%);
+	border-bottom: 5px solid lighten(#4c4c4c,55%);
+	margin-top: 15px;
+}
+.employer-notes{
+	background-color: lighten(#4c4c4c,60%);
+	padding: 10px;
+	font-size: 0.9em;
+}
+table{
+	background-color: lighten(@colourAsk,55%);
+	border: 1px solid lighten(@colourAsk,52%);
+	padding: 5px;
+	margin-top: 10px;
+	width: 100%;
+	border-collapse: collapse;
+	tr{
+		text-align: left;
+	}
+	td,th{
+		padding: 5.1px;
+	}
+	thead{
+		.header-font;
+		font-size: 16px;
+		background: #4c4c4c;
+		color: #fff;
+	}
+	.btn{
+		text-align: center;
 	}
 }
 ul.tags{
@@ -873,6 +916,9 @@ footer{
 			}
 		}
 	}
+}
+.best_in_place{
+
 }
 .feature-link{
 	&.answer{

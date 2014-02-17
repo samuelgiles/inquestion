@@ -21,12 +21,6 @@
         <div><%= f.label :email %>
         <%= f.email_field :email %></div>
 
-        <div><%= f.label :employerName, "Employer Name" %>
-        <%= f.text_field :employerName %></div>
-
-        <div><%= f.label :employerAddress, "Employer Address" %>
-        <%= f.text_area :employerAddress %></div>
-
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
           <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
         <% end %>
@@ -39,9 +33,6 @@
 
         <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i>
         <%= f.password_field :current_password %></div>
-    
-        <div><%= f.label :assessor %>
-        <%= f.collection_select(:assessor_user_id, User.admins, :id, :forename, {include_blank: 'Please select your assessor'}) %></div>
 
         <div><%= f.submit "Update", class: "ask" %></div>
     <% end %>

@@ -1,0 +1,21 @@
+<%= render layout: '/layouts/admin' do %>
+	<div class="col-element has-header question ask">
+		<h2 class="">Admin - Create Employer</h2>
+		
+		<%= form_for @employer, :url => url_for(:controller => 'admin/employers', :action => 'create') do |f| %>
+		    <% if @employer.errors.any? %>
+				<div id="error_explanation">
+					<h2 class="no-theme"><%= pluralize(@employer.errors.count, "error") %> prohibited this employer from being saved:</h2>
+					<ul>
+						<% @employer.errors.full_messages.each do |msg| %>
+						<li><%= msg %></li>
+						<% end %>
+					</ul>
+				</div>
+			<% end %>
+		    <%= render "/admin/employers/employer_fields", :f => f %>
+		   	<%= f.submit :class => "ask", :value => "Create Employer" %>
+		<% end %>
+		
+	</div>
+<% end %>

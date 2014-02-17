@@ -1,0 +1,25 @@
+<%= render layout: '/layouts/admin' do %>
+	<div class="col-element has-header question ask">
+		<h2 class="">Admin - Employers</h2>
+		
+		<%= link_to "Create New Employer", new_admin_employer_path, class: "btn btn-block ask" %>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th><th>Apprentices</th><th>Phone</th><th>&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @employers.each do |employer| %>
+				<tr>
+					<td><%= employer.name %></td>
+					<td><%= employer.apprentices.count %></td>
+					<td><%= employer.phone %></td>
+					<td><%= link_to "View", admin_employer_path(employer), class: "btn btn-block btn-small" %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+
+	</div>
+<% end %>

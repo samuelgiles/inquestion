@@ -36,6 +36,9 @@ function inquestion_admin(){
 			});
 
 		}
+		if($("#employer-map").length > 0){
+			self.employerMap.init();
+		}
 
 	}
 	self.findUser = function(userid)
@@ -58,6 +61,46 @@ function inquestion_admin(){
 				$("#view dd:empty").html("----")
 			}
 		})
+	}
+	self.employerMap = {
+		element: null,
+		map: null,
+		marker: null,
+		geocoder: null,
+		options: {
+			zoom: 12
+		},
+		init: function(){
+			self.employerMap.element = $("#employer-map");
+			self.employerMap.geocoder = new google.maps.Geocoder();
+			//get address:
+			var address = $(self.employerMap.element).data("address");
+			self.employerMap.doGeocode(address);
+
+			//bind update of address:
+			$('.employer-address').bind("ajax:success", function(){
+				self.employerMap.doGeocode($('.employer-address').text());
+			});
+
+		},
+		doGeocode: function(address){
+			self.employerMap.geocoder.geocode({ 'address': address}, function(results, status) {
+				if(status == google.maps.GeocoderStatus.OK){
+					self.employerMap.options.center = results[0].geometry.location;
+					self.employerMap.createMap();
+				}
+				else{
+					self.employerMap.fail();
+				}
+			});
+		},
+		createMap: function(){
+			self.employerMap.map = new google.maps.Map($(self.employerMap.element).get(0), self.employerMap.options);
+			self.employerMap.marker = new google.maps.Marker({ map: self.employerMap.map, position: self.employerMap.options.center });
+		},
+		fail: function(){
+			$(self.employerMap.element).remove();
+		}
 	}
 
 }
@@ -312,8 +355,6 @@ function inquestion_frontend(){
 					
 				}
 			})
-
-			
 
 		}
 	}
