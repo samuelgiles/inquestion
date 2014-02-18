@@ -34,10 +34,17 @@ class UsersController < ApplicationController
 		#check user has permission, could be replaced with cancan?
 		if current_user.is_admin || current_user.id == params[:id]
 			#Remove all knowledge, add via the new JSON
-			@user.tags.delete_all
+			@user.notifytags.delete_all
+
 
 			params[:knowledge].each do |knowledgeArea|
-				@user.tags.create(title: knowledgeArea)
+
+				#find or create:
+				tagToNotify = Tag.where(title: knowledgeArea.strip).first_or_create do |t|
+	    			t.user = @user
+	    		end 
+
+				@user.notifytags.create(tag: tagToNotify, user: @user)
 			end
 
 			respond_to do |format|
