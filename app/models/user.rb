@@ -28,11 +28,11 @@ class User < ActiveRecord::Base
   end
 
   def friendly_start_date
-    self.start_date.strftime("%d/%m/%Y")
+    self.start_date.present? ? self.start_date.strftime("%d/%m/%Y") : ""
   end
 
   def friendly_end_date
-    self.end_date.strftime("%d/%m/%Y")
+    self.end_date.present? ? self.end_date.strftime("%d/%m/%Y") : ""
   end
 
   def is_admin
@@ -47,6 +47,10 @@ class User < ActiveRecord::Base
 
   def assessor_id
     self.assessor != nil ? self.assessor.id : nil
+  end
+
+  def employer_id
+    self.employer != nil ? self.employer.id : nil
   end
 
   def full_name

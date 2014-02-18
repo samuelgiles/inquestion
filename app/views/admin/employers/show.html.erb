@@ -23,7 +23,7 @@
 					<td><%= apprentice.full_name %></td>
 					<td><%= apprentice.email %></td>
 					<td><%= apprentice.friendly_start_date %></td>
-					<td><%= link_to "View", admin_user_path(apprentice), class: "btn btn-block btn-small" %></td>
+					<td><%= link_to "View", user_path(apprentice), class: "btn btn-block btn-small" %></td>
 				</tr>
 				<% end %>
 			</tbody>
@@ -32,6 +32,7 @@
 		<p><i>This employer has no assigned apprentices, you can assign users to an employer by going to the Users page</i></p>
 		<% end %>
 		
+		<%= link_to "Delete Employer", admin_employer_path(@employer), class: "btn btn-small btn-block", :data => { :confirm => "Are you sure?" }, :method => :delete %>
 
 	</div>
 <% end %>

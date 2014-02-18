@@ -48,19 +48,19 @@ Profile
 	
 	<div class="col-element has-header ask">
 		<h2>Employer</h2>
-		<h3 class="no-theme"><%= best_in_place @user, :employer, type: :select, collection: @employer_options %></h3>
+		<h3 class="no-theme"><%= best_in_place @user, :employer_id, type: :select, collection: @employer_options, path: user_update_employer_path(@user) %></h3>
 		<h4 class="no-theme">Since: <%= best_in_place @user, :start_date, type: :date, inner_class: "datepicker", display_as: :friendly_start_date %></h4>
 		<h4 class="no-theme">Until: <%= best_in_place @user, :end_date, type: :date, inner_class: "datepicker", display_as: :friendly_end_date %></h4>
 	</div>
 
 	<div class="col-element ask">
 		<h2>Assessor</h2>
-		<h3 class="no-theme"><%= best_in_place @user, :assessor_id, type: :select, collection: @assessor_options %></h3>
+		<h3 class="no-theme"><%= best_in_place @user, :assessor_id, type: :select, collection: @assessor_options, path: user_update_assessor_path(@user) %></h3>
 	</div>
 	
 	<div class="col-element ask">
 		<h2>Coordinator</h2>
-		<h3 class="no-theme"><%= best_in_place @user, :coordinator, type: :select, collection: @coordinator_options %></h3>
+		<h3 class="no-theme"><%= best_in_place @user, :coordinator_id, type: :select, collection: @coordinator_options, path: user_update_coordinator_path(@user) %></h3>
 	</div>
 	
 </div>
@@ -68,7 +68,7 @@ Profile
 	
 	<div class="col-element has-header ask">
 		<h2>Knowledge Areas</h2>
-		<ul class="feature-list knowledge-list" data-url="<%= update_knowledge_path %>">
+		<ul class="feature-list knowledge-list" data-url="<%= user_update_knowledge_path(@user) %>">
 			<% @user.tags.each do |tag| %>
 			<li>#<%= tag.title %></li>
 			<% end %>

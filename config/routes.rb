@@ -15,7 +15,12 @@ Inquestion::Application.routes.draw do
     resources :comments
   end
 
-  resources :users
+  resources :users do
+    put 'update/employer' => 'users#update_employer', as: :update_employer
+    put 'update/assessor' => 'users#update_assessor', as: :update_assessor
+    put 'update/coordinator' => 'users#update_coordinator', as: :update_coordinator
+    post 'tags' => 'users#update_knowledge', as: :update_knowledge
+  end
   resources :employers do
     resources :users
   end
@@ -26,8 +31,6 @@ Inquestion::Application.routes.draw do
   get 'about' => 'application#about', as: :about_page
   get 'terms' => 'application#terms', as: :terms_page
   get 'privacy' => 'application#privacy', as: :privacy_page
-  
-  post 'users/:id/tags' => 'users#update_knowledge', as: :update_knowledge
 
   get 'notifications/check' => 'notifications#check', as: :notification_check
   get 'notifications' => 'notifications#index', as: :notification_index

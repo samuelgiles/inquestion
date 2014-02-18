@@ -25,42 +25,15 @@ function inquestion_admin(){
 
 	self.init = function(){
 
-		if($("#admin-user-search").length > 0){
-
-			$("#admin-user-search").selectize({
-			    highlight: true,
-			    create: false,
-			    onItemAdd: function(value) {
-			        self.findUser(value);
-			    }
-			});
-
-		}
 		if($("#employer-map").length > 0){
 			self.employerMap.init();
 		}
+		if($("#admin-users-index").length > 0){
+			$("#admin-users-index form select").change(function(){
+				$("#admin-users-index form").submit();
+			});
+		}
 
-	}
-	self.findUser = function(userid)
-	{
-		$.ajax({
-			type: "GET",
-			url: ("/admin/users/" + parseFloat(userid)),
-			success: function(data){
-
-				$("#admin-user-name").html(data.forename + " " + data.surname);
-				$("#admin-user-email").html(data.email);
-				$("#admin-user-lastseen").html(data.last_seen_in_days);
-				$("#admin-user-yearsold").html(data.age);
-				$("#admin-user-admin").html(data.admin ? "Yes" : "No");
-				$("#admin-user-employername").html(data.employerName);
-				$("#admin-user-employeraddress").html(data.employerAddress);
-				$("#admin-user-employerphone").html(data.employerPhone);
-				$("#admin-user-notes").html(data.notes);
-
-				$("#view dd:empty").html("----")
-			}
-		})
 	}
 	self.employerMap = {
 		element: null,
@@ -71,10 +44,13 @@ function inquestion_admin(){
 			zoom: 12
 		},
 		init: function(){
+			
 			self.employerMap.element = $("#employer-map");
 			self.employerMap.geocoder = new google.maps.Geocoder();
 			//get address:
 			var address = $(self.employerMap.element).data("address");
+			$(self.employerMap.element).hide();
+
 			self.employerMap.doGeocode(address);
 
 			//bind update of address:
@@ -86,6 +62,7 @@ function inquestion_admin(){
 		doGeocode: function(address){
 			self.employerMap.geocoder.geocode({ 'address': address}, function(results, status) {
 				if(status == google.maps.GeocoderStatus.OK){
+					$(self.employerMap.element).fadeIn(200);
 					self.employerMap.options.center = results[0].geometry.location;
 					self.employerMap.createMap();
 				}
@@ -99,7 +76,7 @@ function inquestion_admin(){
 			self.employerMap.marker = new google.maps.Marker({ map: self.employerMap.map, position: self.employerMap.options.center });
 		},
 		fail: function(){
-			$(self.employerMap.element).remove();
+			$(self.employerMap.element).hide();
 		}
 	}
 
@@ -215,7 +192,7 @@ function inquestion_frontend(){
 		},
 		setTick: function(){
 			window.clearInterval(window.inquestionNotificationInterval);
-			window.inquestionNotificationInterval = window.setInterval(function(){ inquestionFrontend.notifications.check(); }, 6000);
+			window.inquestionNotificationInterval = window.setInterval(function(){ inquestionFrontend.notifications.check(); }, 20000);
 		},
 		check: function(){
 			$.ajax({

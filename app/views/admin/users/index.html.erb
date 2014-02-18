@@ -1,51 +1,37 @@
 <%= render layout: '/layouts/admin' do %>
-	<div class="col-element has-header question ask col-form">
+	<div id="admin-users-index" class="col-element has-header ask">
 		<h2 class="">Admin - View User</h2>
-		<div id="search">
-		<select id="admin-user-search" class="" placeholder="Search for a user">
-			<% User.all.each do |u| %>
-				<option value="<%= u.id %>"><%= u.forename %> <%= u.surname %></option>
-			<% end %>
-		</select>
-		</div>
-	</div>
-	<div id="view" class="row">
-		<div class="col6">
+		<h3>Assessor:</h3>
 			
-			<h3>Personal Details</h3>
-			<dl>
-				<dt>Name</dt>
-					<dd id="admin-user-name">Samuel Giles</dd>
-				<dt>Email</dt>
-					<dd id="admin-user-email">livelikeasam@googlemail.com</dd>
-				<dt>Last Seen</dt>
-					<dd id="admin-user-lastseen">2 days ago</dd>
-				<dt>Age</dt>
-					<dd id="admin-user-yearsold">20 Years Old</dd>
-				<dt>Admin?</dt>
-					<dd id="admin-user-admin">Yes</dd>	
-			</dl>
-
-		</div>
-		<div class="col6">
+		<%= form_tag('/admin/users', method: :get, :authenticity_token => false, class: "form") do %>
+			<div class="form-control">
+			<%= select_tag(:assessor_id, options_for_select(@assessor_options, params[:assessor_id])) %>
+			</div>
+		<% end %>
 			
-			<h3>Employer Details</h3>
-			<dl>
-				<dt>Name</dt>
-					<dd id="admin-user-employername">Ziontech Solutions Ltd</dd>
-				<dt>Employed Since</dt>
-					<dd id="admin-user-employedsince">04/06/2010</dd>
-				<dt>Phone</dt>
-					<dd id="admin-user-employerphone">01935 424254</dd>
-				<dt>Address</dt>
-					<dd id="admin-user-employeraddress">Unit 1 Ziontech Solutions,<br>Yeovil Small Business,<br>Yeovil,<br>BA22 8WA</dd>	
-				<dt>Notes</dt>
-					<dd id="admin-user-notes">Bit of an asshole</dd>	
-			</dl>
+		</form>
 
-		</div>
+		<% if @apprentices.count > 0 %>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th><th>Email</th><th>End Date</th><th>&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @apprentices.each do |apprentice| %>
+				<tr>
+					<td><%= apprentice.full_name %></td>
+					<td><%= apprentice.email %></td>
+					<td><%= apprentice.friendly_start_date %></td>
+					<td><%= link_to "View", user_path(apprentice), class: "btn btn-block btn-small" %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<% else %>
+		<p><i>No users found with the applied filter</i></p>
+		<% end %>
 	</div>
-	<div class="col-element has-header question ask">
-		<button class="btn-block">Edit User</button>
-	</div>
+	
 <% end %>

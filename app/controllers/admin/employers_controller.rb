@@ -40,6 +40,15 @@ class Admin::EmployersController < Admin::AdminController
 
 	end
 
+	def destroy
+
+		@employer = Employer.find(params[:id])
+		@employer.apprentices.update_all(:employer_id => nil)
+		@employer.destroy
+		redirect_to :action => "index", :notice => "Employer successfully removed"
+
+	end
+
 	private
 	  	def employer_params
 	  		params.require(:employer).permit(:name, :address, :notes)
