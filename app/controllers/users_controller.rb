@@ -29,8 +29,7 @@ class UsersController < ApplicationController
 
 	def update_knowledge
 		
-
-		@user = User.find(params[:id])
+		@user = User.find(params[:user_id])
 
 		#check user has permission, could be replaced with cancan?
 		if current_user.is_admin || current_user.id == params[:id]

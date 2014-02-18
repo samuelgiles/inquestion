@@ -268,17 +268,24 @@ function inquestion_frontend(){
 				event.preventDefault();
 				return false;
 			});
+			$(".knowledge-help").hide();
+			$(self.knowledgeAreas.knowledgeList).on("click", "li.knowledge", function(){
+				if(self.knowledgeAreas.editMode){
+					$(this).remove();
+				}
+			});
 		},
 		changeToEdit: function(){
 			//Add a input box below, change mode to true
 			self.knowledgeAreas.editMode = true;
-			$(".knowledge-list-btn").html("Save Knowledge Areas")
+			$(".knowledge-list-btn").html("Save Knowledge Areas");
+			$(".knowledge-help").show();
 			self.knowledgeAreas.addKnowledge();
 		},
 		addKnowledge: function(){
 			//Spawn a new input box and button
 			$(self.knowledgeAreas.knowledgeList).append("<li><form class=\"form\"><div class=\"form-control\"><input type=\"text\" name=\"knowledge-list-new\" placeholder=\"Add new area\"></input></div></form></li>");
-			var addKnowledgeButton = $("<li><button class=\"btn btn-block\">Add Knowledge Area</button></li>");
+			var addKnowledgeButton = $("<li><button class=\"btn btn-block btn-x-small\">Add Knowledge Area</button></li>");
 			$(self.knowledgeAreas.knowledgeList).append($(addKnowledgeButton));
 			$("button", addKnowledgeButton).click(function(){
 
@@ -287,7 +294,7 @@ function inquestion_frontend(){
 					//Add self to list
 					//-Remove hashtag incase user has entered it and get value into variable
 					var newArea = "#" + ($("input", self.knowledgeAreas.knowledgeList).val()).replace("#", "");
-					var newAreaListItem = $("<li></li>").text(newArea);
+					var newAreaListItem = $("<li class=\"knowledge\"></li>").text(newArea);
 					$(self.knowledgeAreas.knowledgeList).append($(newAreaListItem));
 
 					//Remove self
@@ -309,6 +316,7 @@ function inquestion_frontend(){
 			editMode = false;
 			self.knowledgeAreas.removeKnowledgeInput();
 			$(".knowledge-list-btn").html("Change Knowledge Areas");
+			$(".knowledge-help").hide();
 
 			//Turn ul into a list and remove hashes:
 			var knowledge = new Array();
@@ -326,10 +334,8 @@ function inquestion_frontend(){
 				type: "POST",
 				data: {"knowledge": knowledge},
 				url: ($(self.knowledgeAreas.knowledgeList).data("url")),
-				success: function(data){
-
-					console.log(data);
-					
+				success: function(){
+					self.knowledgeAreas.editMode = false;
 				}
 			})
 

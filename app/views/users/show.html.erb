@@ -81,9 +81,10 @@ Profile
 		<h2>Knowledge Areas</h2>
 		<ul class="feature-list knowledge-list" data-url="<%= user_update_knowledge_path(@user) %>">
 			<% @user.tags.each do |tag| %>
-			<li>#<%= tag.title %></li>
+			<li class="knowledge">#<%= tag.title %></li>
 			<% end %>
 		</ul>
+		<p class="knowledge-help"><i>Click an item to remove it</i></p>
 		<a href="#" class="btn btn-block ask knowledge-list-btn">Change Knowledge Areas</a>
 	</div>
 	
