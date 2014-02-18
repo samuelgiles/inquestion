@@ -25,6 +25,7 @@ Profile
 	<div class="col-element has-header answer">
 		<h2><%= @user.full_name %></h2>
 		<h4><%= best_in_place @user, :email %></h4>
+		<h4 class="no-theme"><%= @user.is_admin ? (@user.admin ? "Assessor" : "Coordinator") : "Standard User" %></h4>
 	</div>
 	<% if current_user.is_admin %>
 	<div class="col-element answer">
@@ -43,6 +44,16 @@ Profile
 		<%= link_to "Edit", :edit_user_registration, class: "btn answer" %>
 	</div>
 	<% end %>
+	
+
+	<div class="col-element has-header ask">
+		<h3>Admin</h3>
+		<%= link_to "Make Assessor", user_make_assessor_path(@user), class: "button" %>
+		<%= link_to "Make Coordinator", user_make_coordinator_path(@user), class: "button" %>
+		<%= link_to "Make Standard User", user_make_user_path(@user), class: "button" %>
+		<%= link_to "Ban Iser", user_ban_path(@user), class: "button" %>
+	</div>
+
 </div>
 <div class="col4">
 	
@@ -73,9 +84,6 @@ Profile
 			<li>#<%= tag.title %></li>
 			<% end %>
 		</ul>
-	</div>
-
-	<div class="col-element ask">
 		<a href="#" class="btn btn-block ask knowledge-list-btn">Change Knowledge Areas</a>
 	</div>
 	

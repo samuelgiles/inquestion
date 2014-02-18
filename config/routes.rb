@@ -19,6 +19,10 @@ Inquestion::Application.routes.draw do
     put 'update/employer' => 'users#update_employer', as: :update_employer
     put 'update/assessor' => 'users#update_assessor', as: :update_assessor
     put 'update/coordinator' => 'users#update_coordinator', as: :update_coordinator
+    get 'make/assessor' => 'users#make_assessor', as: :make_assessor
+    get 'make/coordinator' => 'users#make_coordinator', as: :make_coordinator
+    get 'make/user' => 'users#make_user', as: :make_user
+    get 'ban' => 'users#ban', as: :ban
     post 'tags' => 'users#update_knowledge', as: :update_knowledge
   end
   resources :employers do

@@ -105,6 +105,63 @@ class UsersController < ApplicationController
 
 	end
 
+	def make_assessor
+
+		@user = User.find(params[:user_id])
+
+		if current_user.is_admin
+
+			@user.admin = true
+			@user.employer_id = nil
+			@user.coordinator_user_id = nil
+			@user.start_date = nil
+			@user.end_date = nil
+			@user.assessor_user_id = nil
+			@user.coordinator = nil
+			@user.save
+			redirect_to user_path(@user), :notice => "Successfully transformed user into an assessor"
+
+		end
+
+	end
+
+	def make_coordinator
+
+		@user = User.find(params[:user_id])
+
+		if current_user.is_admin
+
+			@user.coordinator = true
+			@user.admin = nil
+			@user.employer_id = nil
+			@user.coordinator_user_id = nil
+			@user.start_date = nil
+			@user.end_date = nil
+			@user.assessor_user_id = nil
+
+			@user.save
+			redirect_to user_path(@user), :notice => "Successfully transformed user into an coordinator"
+
+		end
+
+	end
+
+	def make_user
+
+		@user = User.find(params[:user_id])
+
+		if current_user.is_admin
+
+			@user.coordinator = nil
+			@user.admin = nil
+
+			@user.save
+			redirect_to user_path(@user), :notice => "Successfully transformed user into an standard user"
+
+		end
+
+	end
+
 	private
 	  	def user_params
 	  		params.require(:user).permit(:email, :notes, :assessor_id, :assessor, :employer, :coordinator_id, :employer_id, :start_date, :end_date, :english, :it, :maths)

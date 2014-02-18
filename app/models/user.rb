@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   belongs_to :assessor, :class_name => "User", :foreign_key => "assessor_user_id"
   has_many :assessor_students, :class_name => "User", :foreign_key => "assessor_user_id"
 
-  belongs_to :coordinator, :class_name => "User", :foreign_key => "coordinator_user_id"
+  belongs_to :apprentice_coordinator, :class_name => "User", :foreign_key => "coordinator_user_id"
   has_many :coordinator_students, :class_name => "User", :foreign_key => "coordinator_user_id"
 
   has_many :notifications
@@ -37,12 +37,12 @@ class User < ActiveRecord::Base
 
   def is_admin
 
-    User.admins.find(self.id) != nil ? true : false
+    User.admins.where(:id => self.id).exists?
 
   end
 
   def coordinator_id
-    self.coordinator != nil ? self.coordinator.id : nil
+    self.apprentice_coordinator != nil ? self.apprentice_coordinator.id : nil
   end
 
   def assessor_id
