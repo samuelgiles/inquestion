@@ -3,16 +3,18 @@ class UsersController < ApplicationController
 	def show
 
 		@user = User.find(params[:id])
-		@assessor_options = User.admins.collect{ |u| [u.id, u.full_name]}
-		@assessor_options.unshift(["", "Unspecified"])
+		if current_user.is_admin || current_user.id == params[:id]
+			@assessor_options = User.admins.collect{ |u| [u.id, u.full_name]}
+			@assessor_options.unshift(["", "Unspecified"])
 
-		@coordinator_options = User.coordinators.collect{ |u| [u.id, u.full_name]}
-		@coordinator_options.unshift(["", "Unspecified"])
+			@coordinator_options = User.coordinators.collect{ |u| [u.id, u.full_name]}
+			@coordinator_options.unshift(["", "Unspecified"])
 
-		@employer_options = Employer.all.collect{ |u| [u.id, u.name]}
-		@employer_options.unshift(["", "Yet to be assigned"])
+			@employer_options = Employer.all.collect{ |u| [u.id, u.name]}
+			@employer_options.unshift(["", "Yet to be assigned"])
 
-		@keyskills_options = [["", "Unspecified"],["false", "Planned"],["true", "Exempt"]]
+			@keyskills_options = [["", "Unspecified"],["false", "Planned"],["true", "Exempt"]]
+		end
 
 	end
 
@@ -60,7 +62,7 @@ class UsersController < ApplicationController
 		
 		@user = User.find(params[:user_id])
 		#check user has permission, could be replaced with cancan?
-		if current_user.is_admin || current_user.id == params[:user_id]
+		if current_user.is_admin
 
 			if User.exists?(params[:user][:coordinator_id])
 				@user.coordinator = User.find(params[:user][:coordinator_id])
@@ -78,7 +80,7 @@ class UsersController < ApplicationController
 
 		@user = User.find(params[:user_id])
 		#check user has permission, could be replaced with cancan?
-		if current_user.is_admin || current_user.id == params[:user_id]
+		if current_user.is_admin
 
 			if User.exists?(params[:user][:assessor_id])
 				@user.assessor = User.find(params[:user][:assessor_id])
@@ -97,7 +99,7 @@ class UsersController < ApplicationController
 
 		@user = User.find(params[:user_id])
 		#check user has permission, could be replaced with cancan?
-		if current_user.is_admin || current_user.id == params[:user_id]
+		if current_user.is_admin
 
 			if Employer.exists?(params[:user][:employer_id])
 				@user.employer = Employer.find(params[:user][:employer_id])
@@ -166,6 +168,10 @@ class UsersController < ApplicationController
 
 		end
 
+	end
+
+	def allowed?
+		redirect_to(root_path) unless current_user.is_admin
 	end
 
 	private

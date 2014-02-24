@@ -1,5 +1,5 @@
 <% content_for :head do %>
-  <title>inquestion - Home</title>
+  <title>inquestion - Profile - <%= @user.full_name %></title>
 <% end %>
 <% content_for :cover do %>
 Profile
@@ -28,16 +28,16 @@ Profile
 		<h4 class="no-theme"><%= @user.is_admin ? (@user.admin ? "Assessor" : "Coordinator") : "Standard User" %></h4>
 	</div>
 	<% if current_user.is_admin %>
-	<div class="col-element answer">
-		<h3>Notes</h3>
-		<%= best_in_place @user, :notes, type: :textarea %>
-	</div>
+		<div class="col-element answer">
+			<h3>Notes</h3>
+			<%= best_in_place @user, :notes, type: :textarea %>
+		</div>
 	<% end %>
 	<div class="col-element answer">
 		<h3>Key Skills</h3>
-		<h3 class="no-theme">English: <%= best_in_place @user, :english, type: :select, collection: @keyskills_options %></h3>
-		<h3 class="no-theme">Maths: <%= best_in_place @user, :maths, type: :select, collection: @keyskills_options %></h3>
-		<h3 class="no-theme">IT: <%= best_in_place @user, :it, type: :select, collection: @keyskills_options %></h3>
+		<h3 class="no-theme">English: <%= best_in_place_if current_user.is_admin, @user, :english, type: :select, collection: @keyskills_options %></h3>
+		<h3 class="no-theme">Maths: <%= best_in_place_if current_user.is_admin, @user, :maths, type: :select, collection: @keyskills_options %></h3>
+		<h3 class="no-theme">IT: <%= best_in_place_if current_user.is_admin, @user, :it, type: :select, collection: @keyskills_options %></h3>
 	</div>
 	<% if current_user.id == @user.id %>
 	<div class="col-element answer">
@@ -45,7 +45,7 @@ Profile
 	</div>
 	<% end %>
 	
-
+	<% if current_user.is_admin %>
 	<div class="col-element has-header ask">
 		<h3>Admin</h3>
 		<%= link_to "Make Assessor", user_make_assessor_path(@user), class: "button" %>
@@ -53,25 +53,44 @@ Profile
 		<%= link_to "Make Standard User", user_make_user_path(@user), class: "button" %>
 		<%= link_to "Ban Iser", user_ban_path(@user), class: "button" %>
 	</div>
+	<% end %>
 
 </div>
 <div class="col4">
 	
 	<div class="col-element has-header ask">
 		<h2>Employer</h2>
-		<h3 class="no-theme"><%= best_in_place @user, :employer_id, type: :select, collection: @employer_options, path: user_update_employer_path(@user) %></h3>
-		<h4 class="no-theme">Since: <%= best_in_place @user, :start_date, type: :date, inner_class: "datepicker", display_as: :friendly_start_date %></h4>
-		<h4 class="no-theme">Until: <%= best_in_place @user, :end_date, type: :date, inner_class: "datepicker", display_as: :friendly_end_date %></h4>
+		<h3 class="no-theme">
+		<% if current_user.is_admin %>
+		<%= best_in_place @user, :employer_id, type: :select, collection: @employer_options, path: user_update_employer_path(@user) %>
+		<% else %>
+		<%= @user.employer.present? ? @user.employer.name : "Yet to be assigned" %>
+		<% end %>
+		</h3>
+		<h4 class="no-theme">Since: <%= best_in_place_if current_user.is_admin, @user, :start_date, type: :date, inner_class: "datepicker", display_as: :friendly_start_date %></h4>
+		<h4 class="no-theme">Until: <%= best_in_place_if current_user.is_admin, @user, :end_date, type: :date, inner_class: "datepicker", display_as: :friendly_end_date %></h4>
 	</div>
 
 	<div class="col-element ask">
 		<h2>Assessor</h2>
-		<h3 class="no-theme"><%= best_in_place @user, :assessor_id, type: :select, collection: @assessor_options, path: user_update_assessor_path(@user) %></h3>
+		<h3 class="no-theme">
+		<% if current_user.is_admin %>
+		<%= best_in_place @user, :assessor_id, type: :select, collection: @assessor_options, path: user_update_assessor_path(@user) %>
+		<% else %>
+		<%= @user.assessor.present? ? @user.assessor.full_name : "Yet to be assigned" %>
+		<% end %>
+		</h3>
 	</div>
 	
 	<div class="col-element ask">
 		<h2>Coordinator</h2>
-		<h3 class="no-theme"><%= best_in_place @user, :coordinator_id, type: :select, collection: @coordinator_options, path: user_update_coordinator_path(@user) %></h3>
+		<h3 class="no-theme">
+		<% if current_user.is_admin %>
+		<%= best_in_place @user, :coordinator_id, type: :select, collection: @coordinator_options, path: user_update_coordinator_path(@user) %>
+		<% else %>
+		<%= @user.coordinator.present? ? @user.coordinator.full_name : "Yet to be assigned" %>
+		<% end %>
+		</h3>
 	</div>
 	
 </div>
@@ -79,13 +98,18 @@ Profile
 	
 	<div class="col-element has-header ask">
 		<h2>Knowledge Areas</h2>
+		<% if current_user.id == @user.id %>
+			<p>Add knowledge areas to be notified when questions are posted to the tags you specify.</p>
+		<% end %>
 		<ul class="feature-list knowledge-list" data-url="<%= user_update_knowledge_path(@user) %>">
 			<% @user.tags.each do |tag| %>
 			<li class="knowledge">#<%= tag.title %></li>
 			<% end %>
 		</ul>
 		<p class="knowledge-help"><i>Click an item to remove it</i></p>
-		<a href="#" class="btn btn-block ask knowledge-list-btn">Change Knowledge Areas</a>
+		<% if current_user.id == @user.id || current_user.is_admin %>
+			<a href="#" class="btn btn-block ask knowledge-list-btn">Change Knowledge Areas</a>
+		<% end %>
 	</div>
 	
 </div>
