@@ -38,7 +38,21 @@ class QuestionsController < ApplicationController
   #display all
   def index
 
-    @popularQuestions = Question.all
+    #sort types:
+    #popular : questions measured by the number of answers in the last 6 weeks (this could change is service is popular)
+    #new : questions by created_at
+    #recently answered : get questions sorted by updated_at with accepted answers (touch question on accept answer)
+    
+    if params.has_key?(:new)
+      @sort_title = "New Questions"
+      @questions = Question.order(:created_at).limit(20)
+    elsif params.has_key?(:answered)
+      @sort_title = "Answered Questions"
+      @questions = Question.answered.order(:updated_at).limit(20)
+    else
+      @sort_title = "Popular Questions"
+      @questions = Question.popular.limit(20)
+    end
 
   end
 

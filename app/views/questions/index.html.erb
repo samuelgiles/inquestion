@@ -1,3 +1,6 @@
+<% content_for :head do %>
+  <title>inquestion - Questions - <%= @sort_title %></title>
+<% end %>
 <div class="row">
 	<div class="col6">
 		
@@ -43,29 +46,42 @@
 	</div>
 	<div class="col6">
 		<div class="col-element has-header answer has-option">
-			<h2>Popular Questions</h2>
-			<a href="#" class="header_option">Popular <i class="icon icon-arrow-down"></i></a>
-
-			<ul class="question_list">
-				
-				<% @popularQuestions.each do |q| %>
-				<li class="question">
-					<div class="question-top">
-						<a class="question-votes" href="#">+<%=q.votes.count %></a><h3><%= link_to q.title, q %></h3>
-					</div>
-					<p><%= q.content %></p>
-					<div class="question-bottom">
-						<ul class="question-tags">
-							<% q.tags.each do |qt| %>
-							<li><%= link_to "#" + qt.title, qt %></li>
-							<% end %>
-						</ul>
-						<span>- asked by <a href="#">Samuel Giles</a>
-					</div>
-				</li>
-				<% end %>
-
+			<h2><%= @sort_title %></h2>
+			<a href="#" class="header_option" data-sort-menu="#question-menu"><%= @sort_title.sub! " Questions", "" %> <i class="icon icon-arrow-down"></i></a>
+			<ul class="sortmenu" id="question-menu">
+				<li><a href="?popular">Popular</a></li>
+				<li><a href="?new">New</a></li>
+				<li><a href="?answered">Answered</a></li>
 			</ul>
+			
+			<% if @questions.length > 0 %>
+				<ul class="question_list">
+					
+					<% @questions.each do |q| %>
+					<li class="question">
+						<div class="question-top">
+							<a class="question-votes" href="#">+<%=q.votes.count %></a><h3><%= link_to q.title, q %></h3>
+						</div>
+						<p><%= q.content %></p>
+						<div class="question-bottom">
+							<ul class="question-tags">
+								<% q.tags.each do |qt| %>
+								<li><%= link_to "#" + qt.title, qt %></li>
+								<% end %>
+							</ul>
+							<span>- asked by <a href="#">Samuel Giles</a></span>
+						</div>
+					</li>
+					<% end %>
+
+				</ul>
+			<% else %>
+			
+				<p>Unfortunately there don't appear to be any <%= @sort_title.downcase %> questions. Bummer.</p>
+
+			<% end %>
 		</div>
 	</div>
 </div>
+
+
