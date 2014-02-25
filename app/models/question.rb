@@ -1,6 +1,9 @@
 class Question < ActiveRecord::Base
 	include Rails.application.routes.url_helpers
 
+	extend FriendlyId
+  	friendly_id :title, use: [:slugged, :finders]
+
 	belongs_to :user
 	has_many :answers
 	belongs_to :accepted_answer, :class_name => "Answer", :foreign_key => :answer_id

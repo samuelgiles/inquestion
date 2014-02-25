@@ -43,6 +43,9 @@ gem 'newrelic_rpm'
 gem 'twitter'
 gem 'best_in_place', :git => 'https://github.com/aaronchi/best_in_place.git'
 gem 'jquery-ui-rails'
+gem 'jquery-turbolinks'
+
+gem 'friendly_id', '~> 5.0.0'
 
 group :development do
   gem "better_errors"
