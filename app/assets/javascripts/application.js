@@ -11,13 +11,13 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
-//= require turbolinks
 //= require best_in_place
 //= require best_in_place.purr
 //= require jquery.ui.datepicker
+//= require turbolinks
 //= require_tree .
-
 
 function inquestion_admin(){
 	
@@ -82,7 +82,7 @@ function inquestion_admin(){
 
 }
 
-var inquestionAdmin = new inquestion_admin();
+var inquestionAdmin = null;
 
 function inquestion_frontend(){
 	
@@ -90,21 +90,25 @@ function inquestion_frontend(){
 
 	self.init = function(){
 
+		console.log("easdasdasde");
+
 		if($("#question-help").length > 0){
 
 			self.setupAsk();
 
 		}
 
-		if($("#notifications").length > 0){
-			self.notifications.setup();
-		}
+		self.notifications.setup();
 
-		$('.best_in_place').best_in_place();
+		$(".best_in_place").best_in_place();
 		$.datepicker.setDefaults({
 		    dateFormat: 'dd/mm/yy'
 		});
-		$('.datepicker').datepicker();
+		$("[data-sort-menu]").each(function(){
+			self.sortMenu($(this));
+		});
+
+		$(".datepicker").datepicker();
 		
 		self.knowledgeAreas.init();
 
@@ -161,7 +165,7 @@ function inquestion_frontend(){
 			$("#notifications-clear").click(function(event){
 
 				var iCurrentDelay = 0;
-				var iCurrent = 0;
+                var iCurrent = 0;
 				$("li", popover).each(function(){
 
 					
@@ -341,19 +345,78 @@ function inquestion_frontend(){
 
 		}
 	}
+	self.sortMenu = function(menu){
+		
+		var self = this;
+
+		self.menu = null;
+		self.content = null;
+		self.visible = false;
+		self.init = function(o){
+
+			self.menu = $(o);
+			//Find content:
+			self.content = $($(self.menu).data("sort-menu"));
+			//Attach events:
+			self.attachEvents();
+
+		}
+		self.attachEvents = function(){
+			$(self.menu).click(function(){
+				if(self.visible){
+					self.doClose();
+				}
+				else{
+					self.doOpen();
+				}
+				event.preventDefault();
+				return false;
+			});
+			$(window).resize(function(){
+				self.resize();
+			});
+		}
+		self.doOpen = function(){
+
+			self.visible = true;
+			//Position to the menu
+			self.setPosition();
+			$(self.content).addClass("active").removeClass("animated flipInX flipOutX").addClass("animated flipInX");
+
+		}
+		self.doClose = function(){
+			self.visible = false;
+			$(self.content).removeClass("animated flipInX flipOutX").addClass("animated flipOutX");
+		}
+		self.resize = function(){
+			self.setPosition();
+		}
+		self.setPosition = function(){
+			var top, right;
+			//Get menu position:
+			top = ($(self.menu).position()).top + $(self.menu).height() + 10;
+			right = $(self.menu).css("right");
+
+			$(self.content).css({"top": top, "right": right});
+		}
+		self.init(menu);
+
+	}
+	self.init();
 
 }
 
-var inquestionFrontend = new inquestion_frontend();
-$(document).on('ready page:load', function () {
+var inquestionFrontend = null;
+$(document).ready(function () {
 
 	$(".selectize").selectize({
 		highlight: true,
 		create: false
 	});
 
-	inquestionAdmin.init();
-	inquestionFrontend.init();
+	inquestionAdmin = new inquestion_admin();
+	inquestionFrontend = new inquestion_frontend();
+
 
 }).on("page:change", function(){
 	$("#main").removeClass("animated fadeInDown fadeOutUp").addClass("animated fadeInDown");
