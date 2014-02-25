@@ -46,6 +46,9 @@ gem 'jquery-ui-rails'
 gem 'jquery-turbolinks'
 
 gem 'friendly_id', '~> 5.0.0'
+gem 'will_paginate', '~> 3.0'
+
+gem "humanize", "~> 1.1.0"
 
 group :development do
   gem "better_errors"
