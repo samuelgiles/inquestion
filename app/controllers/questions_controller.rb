@@ -45,13 +45,13 @@ class QuestionsController < ApplicationController
     
     if params.has_key?(:new)
       @sort_title = "New Questions"
-      @questions = Question.order(:created_at).limit(20)
+      @questions = Question.order(:created_at).limit(10)
     elsif params.has_key?(:answered)
       @sort_title = "Answered Questions"
-      @questions = Question.answered.order(:updated_at).limit(20)
+      @questions = Question.answered.order(:updated_at).limit(10)
     else
       @sort_title = "Popular Questions"
-      @questions = Question.popular.limit(20)
+      @questions = Question.popular.limit(10)
     end
 
   end
