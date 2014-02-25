@@ -1,6 +1,7 @@
 class AnswerVote < ActiveRecord::Base
   belongs_to :question
   belongs_to :user
+  belongs_to :answer
 
   after_create :create_new_answer_vote_notification
   def create_new_answer_vote_notification
