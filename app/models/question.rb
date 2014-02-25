@@ -16,6 +16,12 @@ class Question < ActiveRecord::Base
 	scope :unanswered, lambda { where(answer_id: nil) }
 	scope :answered, lambda { joins(:answers).where("answers.id = questions.answer_id") }
 
+	scope :popular, joins("left join votes on votes.question_id = questions.id").
+					select("questions.*, count(votes.id) as votes_count").
+					where("votes.created_at >= ?", 6.week.ago).
+					group("questions.id").
+					order("votes_count desc")
+
 	def tag_list
 		tags.map(&:title).join(", ")
 	end
@@ -48,15 +54,18 @@ class Question < ActiveRecord::Base
 	after_create :create_new_question_notification
 	def create_new_question_notification
 
-		if self.user.assessor_students.present? 
+		#build a list of users to send notification to:
+		notify_users = []
+
+		if self.user.assessor.present?
+			notify_users << self.user.assessor.id
 			self.user.assessor.notifications.create(:content => "has posted a question \"#{self.title}\" (you are their assessor)", :author => self.user, :link => question_path(:id => self.id))
 		end
 
-		#build a list of users to send notification to:
-		notify_users = []
+		
 		self.tags.each do |tag|
 			notify_users.concat(tag.subscribed_users.where.not(id: self.user.id).select(:user_id).collect{|u| u.user_id})
-		end
+		end 
 		notify_users = notify_users.uniq
 
 		notify_users.each do |u|
