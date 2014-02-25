@@ -19,11 +19,22 @@ class Question < ActiveRecord::Base
 	scope :unanswered, lambda { where(answer_id: nil) }
 	scope :answered, lambda { joins(:answers).where("answers.id = questions.answer_id") }
 
-	scope :popular, joins("left join votes on votes.question_id = questions.id").
-					select("questions.*, count(votes.id) as votes_count").
-					where("votes.created_at >= ?", 6.week.ago).
-					group("questions.id").
-					order("votes_count desc")
+	scope :popular, lambda{ 
+						joins("left join votes on votes.question_id = questions.id").
+						select("questions.*, count(votes.id) as votes_count").
+						where("votes.created_at >= ?", 6.week.ago).
+						group("questions.id").
+						order("votes_count desc")
+					}
+
+	scope :top_voted, lambda{ 
+						joins("left join votes on votes.question_id = questions.id").
+						select("questions.*, count(votes.id) as votes_count").
+						group("questions.id").
+						order("votes_count desc")
+					}
+
+	scope :has_tag, lambda {|tag_title| joins(:tags).where(:tags => { :title => tag_title }) }
 
 	def tag_list
 		tags.map(&:title).join(", ")

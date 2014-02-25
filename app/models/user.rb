@@ -23,6 +23,8 @@ class User < ActiveRecord::Base
   scope :admins, lambda { where("users.admin = true OR users.coordinator = true") }
   scope :coordinators, lambda { where("users.coordinator = true") }
 
+  scope :has_knowledge, lambda {|tag_title| joins(:tags).where(:tags => { :title => tag_title }) }
+
   def last_seen_in_days
     time_ago_in_words(self.last_seen)
   end

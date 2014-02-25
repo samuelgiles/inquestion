@@ -307,6 +307,9 @@ h4{
   &.answer{
     border-top: 12px solid @colourAnswer;
   }
+  &.grey{
+    border-top: 12px solid @bodycolour;
+  }
   p.sub-header{
     margin: 0px;
     margin-bottom: 10px;
@@ -317,10 +320,11 @@ h4{
   .header_option{
     position: absolute;
     right: 0px;
-    top: 10px;
-    font-size: 24px;
+    top: 5px;
+    font-size: 20px;
     text-decoration: none;
     display: block;
+    color: @bodycolour;
     .ask&{
       color: @colourAsk;
     }
@@ -944,9 +948,41 @@ ul.sortmenu{
   position: absolute;
   top: 0px;
   right: 0px;
-  background-color: @colourAnswer;
-  border: 1px solid darken(@colourAnswer,5%);
-  border-top: 5px solid darken(@colourAnswer,8%);
+
+  background-color: @bodycolour;
+  border: 1px solid darken(@bodycolour,5%);
+  border-top: 5px solid darken(@bodycolour,8%);
+  li{
+    border-bottom: 3px solid darken(@bodycolour,3%);
+  }
+  &:before{
+    border-bottom: 10px solid darken(@bodycolour,8%);
+  }
+  &.answer, .answer &{
+    background-color: @colourAnswer;
+    border: 1px solid darken(@colourAnswer,5%);
+    border-top: 5px solid darken(@colourAnswer,8%);
+    li{
+      border-bottom: 3px solid darken(@colourAnswer,3%);
+    }
+    &:before{
+      border-bottom: 10px solid darken(@colourAnswer,8%);
+    }
+  }
+  &.ask, .ask &{
+    background-color: @colourAsk;
+    border: 1px solid darken(@colourAsk,5%);
+    border-top: 5px solid darken(@colourAsk,8%);
+    li{
+      border-bottom: 3px solid darken(@colourAsk,3%);
+    }
+    &:before{
+      border-bottom: 10px solid darken(@colourAsk,8%);
+    }
+  }
+
+
+  
   width: 70%;
   a{
     color: #fff;
@@ -968,9 +1004,6 @@ ul.sortmenu{
       color: #fff;
     }
   }
-  li{
-    border-bottom: 3px solid darken(@colourAnswer,3%);
-  }
   &.active{
     display: block;
   }
@@ -983,7 +1016,7 @@ ul.sortmenu{
     height: 0px;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    border-bottom: 10px solid darken(@colourAnswer,8%);
+    
   }
   
   &.flipOutX{
@@ -996,7 +1029,33 @@ ul.sortmenu{
     animation-duration: 0.3s;
   }
 }
-
+.pagination{
+  text-align: center;
+  .previous_page, .next_page{
+    .btn;
+    .btn-small;
+    &.disabled{
+      opacity: 0.3;
+    }
+  }
+  .previous_page{
+    float: left;
+  }
+  em,a{
+    margin: 2px;
+    font-weight: bold;
+  }
+  a{
+    color: @colourAnswer;
+  }
+  em{
+    color: @bodycolour;
+    font-style: normal;
+  }
+  .next_page{
+    float: right;
+  }
+}
 
 @media (max-width: 1200px) {
 

@@ -49,9 +49,9 @@
 			<h2><%= @sort_title %></h2>
 			<a href="#" class="header_option" data-sort-menu="#question-menu"><%= @sort_title.sub! " Questions", "" %> <i class="icon icon-arrow-down"></i></a>
 			<ul class="sortmenu" id="question-menu">
-				<li><a href="?popular">Popular</a></li>
-				<li><a href="?new">New</a></li>
-				<li><a href="?answered">Answered</a></li>
+				<li><a href="?popular=1">Popular</a></li>
+				<li><a href="?new=1">New</a></li>
+				<li><a href="?answered=1">Answered</a></li>
 			</ul>
 			
 			<% if @questions.length > 0 %>

@@ -1,0 +1,72 @@
+<% content_for :head do %>
+  <title>inquestion - Questions - <%= @sort_title %></title>
+<% end %>
+<div class="row">
+	<div class="col4">
+		<div class="col-element has-header answer">
+			<h1>Tag</h1>
+			<h2 class="no-theme"><small>#<%= @tag.title %></small></h2>
+			<ul class="">
+				<li>There are <strong><%= @number_of_questions_in_tag.humanize %> questions</strong> in #<%= @tag.title %></li>
+				<li>The most recent activity was about <strong><%= time_ago_in_words(@last_question_update) %> ago</strong></li>
+				<li><strong><%= @percent_answered.humanize.capitalize %> percent</strong> of questions in #<%= @tag.title %> have been answered</li>
+				<li>
+				<% if @number_of_knowledge_users > 1 %> 
+				There <%= @number_of_knowledge_users == 1 ? "is" : "are" %> <strong><%= pluralize(@number_of_knowledge_users, "person", "people") %></strong> who consider themselves as having knowledge of this area
+				<% else %>
+				<strong>Nobody</strong> considers themself as having knowledge of this area. Bummer.
+				<% end %>
+				</li>
+			</ul>
+			
+		</div>
+	</div>
+	<div class="col8">
+		<div class="col-element has-header grey has-option">
+			<h3><%= @sort_title %></h3>
+			<a href="#" class="header_option" data-sort-menu="#question-menu"><%= @sort_title_short %> <i class="icon icon-arrow-down"></i></a>
+			<ul class="sortmenu" id="question-menu">
+				<li><a href="?popular=1">Popular</a></li>
+				<li><a href="?new=1">New</a></li>
+				<li><a href="?answered=1">Answered</a></li>
+			</ul>
+			<% if @sort_title_short = "Answered" %>
+			<p class="sub-header">The most popular answered questions in <strong>#<%= @tag.title %></strong> as measured by the number of votes.</p>
+			<% elsif @sort_title_short = "Answered" %>
+			<p class="sub-header">The most popular answered questions in <strong>#<%= @tag.title %></strong> as measured by the number of votes.</p>
+			<% end %>
+					
+			<% if @questions.length > 0 %>
+			<ul class="question_list">
+				
+				<% @questions.each do |q| %>
+				<li class="question">
+					<div class="question-top">
+						<a class="question-votes" href="#">+<%=q.votes.count %></a><h3><%= link_to q.title, q %></h3>
+					</div>
+					<p><%= q.content %></p>
+					<div class="question-bottom">
+						<ul class="question-tags">
+							<% q.tags.each do |qt| %>
+							<li><%= link_to "#" + qt.title, qt %></li>
+							<% end %>
+						</ul>
+						<span>- asked by <a href="#">Samuel Giles</a></span>
+					</div>
+				</li>
+				<% end %>
+
+			</ul>
+			<% else %>
+			
+				<p>Unfortunately there don't appear to be any <%= @sort_title_short.downcase %> questions. Bummer.</p>
+
+			<% end %>
+
+			
+			<%= will_paginate @questions %>
+		</div>
+	</div>
+</div>
+
+
