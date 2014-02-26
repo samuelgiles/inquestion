@@ -10,6 +10,7 @@ class Admin::QuestionsController < Admin::AdminController
 		@question = Question.new
 		@question.title = params[:question][:title]
 		@question.content = params[:question][:content]
+		@question.tag_list = params[:question][:tag_list]
 		@question.user = current_user
 		@question.save
 
