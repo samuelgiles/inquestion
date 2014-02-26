@@ -1,10 +1,16 @@
+<% content_for :head do %>
+  <title>inquestion - <%= @question.title %></title>
+<% end %>
+<% content_for :meta_description do %>
+<meta name="description" content="<%= @question.user.forename %> asked '<%= @question.title %>' on inquestion, a knowledgebase created by Web Designer Samuel Giles in Somerset" />
+<% end %>
 <% content_for :opengraph do %>
 <meta property="og:title" content="<%= @question.title %>" />
 <meta property="og:type" content="article" />
-<meta property="og:description" content="<%= truncate(@question.content, length: 297) %>" />
+<meta property="og:description" content="<%= @question.user.forename %> asked '<%= truncate(@question.content, length: 250) %>'" />
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="<%= @question.title %>">
-<meta name="twitter:description" content="<%= truncate(@question.content, length: 297) %>">
+<meta name="twitter:description" content="<%= @question.user.forename %> asked '<%= truncate(@question.content, length: 230) %>'">
 <meta name="twitter:image" content="<%= request.protocol + request.host_with_port + image_path("icon-large.png") %>">
 <meta name="twitter:creator" content="https://twitter.com/inquestionhq">
 <% end %>

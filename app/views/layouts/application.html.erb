@@ -6,6 +6,13 @@
 		<% else %>
 		<title>inquestion</title>
 		<% end %>
+		<% if content_for?(:meta_description) %>
+			<%= content_for(:meta_description) %>
+		<% else %>
+		<meta name="description" content="inquestion is a question and answer community designed to make asking questions a faster, easier process designed and created by Web Developer Samuel Giles in Yeovil, Somerset" />
+		<% end %>
+		<meta name="author" content="Samuel Giles">
+		<meta name="keywords" content="inquestion,question,answer,yeovil,somerset,college,university,help,support,apprenticeship,it users,it professionals,it apprenticeship">
 		<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
 		<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
