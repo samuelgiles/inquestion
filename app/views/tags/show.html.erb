@@ -7,7 +7,7 @@
 			<h1>Tag</h1>
 			<h2 class="no-theme"><small>#<%= @tag.title %></small></h2>
 			<ul class="">
-				<li>There are <strong><%= @number_of_questions_in_tag.humanize %> questions</strong> in #<%= @tag.title %></li>
+				<li>There <%= @number_of_questions_in_tag == 1 ? "is" : "are" %> <strong><%= @number_of_questions_in_tag.humanize %> <%= pluralize(@number_of_questions_in_tag, "question") %></strong> in #<%= @tag.title %></li>
 				<li>The most recent activity was about <strong><%= time_ago_in_words(@last_question_update) %> ago</strong></li>
 				<li><strong><%= @percent_answered.humanize.capitalize %> percent</strong> of questions in #<%= @tag.title %> have been answered</li>
 				<li>
