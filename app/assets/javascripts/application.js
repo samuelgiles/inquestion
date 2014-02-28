@@ -20,7 +20,7 @@
 //= require_tree .
 
 function inquestion_admin(){
-	
+
 	var self = this;
 
 	self.init = function(){
@@ -44,7 +44,7 @@ function inquestion_admin(){
 			zoom: 12
 		},
 		init: function(){
-			
+
 			self.employerMap.element = $("#employer-map");
 			self.employerMap.geocoder = new google.maps.Geocoder();
 			//get address:
@@ -85,12 +85,10 @@ function inquestion_admin(){
 var inquestionAdmin = null;
 
 function inquestion_frontend(){
-	
+
 	var self = this;
 
 	self.init = function(){
-
-		console.log("easdasdasde");
 
 		if($("#question-help").length > 0){
 
@@ -107,9 +105,12 @@ function inquestion_frontend(){
 		$("[data-sort-menu]").each(function(){
 			self.sortMenu($(this));
 		});
+		$(".vote").each(function(){
+			new self.vote($(this));
+		})
 
 		$(".datepicker").datepicker();
-		
+
 		self.knowledgeAreas.init();
 
 	}
@@ -168,7 +169,7 @@ function inquestion_frontend(){
                 var iCurrent = 0;
 				$("li", popover).each(function(){
 
-					
+
 					$(this).fadeIn(1).delay(iCurrentDelay).fadeIn(1,function(){
 						$(this).addClass("animated flipOutX")
 					}).slideUp(500, function(){
@@ -180,7 +181,7 @@ function inquestion_frontend(){
 							$(noNotifications).hide().addClass("animated flipInX").slideDown(400);
 						}
 					});
-					
+
 					iCurrentDelay += 200;
 
 				});
@@ -203,7 +204,7 @@ function inquestion_frontend(){
 				type: "GET",
 				url: ("/notifications/check"),
 				success: function(data){
-					
+
 					if(data.notifications != self.notifications.currentCount){
 						self.notifications.fetch();
 					}
@@ -307,7 +308,7 @@ function inquestion_frontend(){
 					//Repeat the process, add a new button
 					self.knowledgeAreas.addKnowledge();
 				}
-				
+
 				event.preventDefault();
 				return false;
 			});
@@ -331,7 +332,7 @@ function inquestion_frontend(){
 				if($(this).text().length > 0){
 					knowledge.push(($(this).text()).replace("#", ""))
 				}
-				
+
 			});
 
 			$.ajax({
@@ -346,7 +347,7 @@ function inquestion_frontend(){
 		}
 	}
 	self.sortMenu = function(menu){
-		
+
 		var self = this;
 
 		self.menu = null;
@@ -402,6 +403,43 @@ function inquestion_frontend(){
 		self.init(menu);
 
 	}
+	//Method to run on every kind of voting link:
+	self.vote = function(link){
+
+		var self = this;
+		self.element = null;
+		self.vote_url = null;
+		self.init = function(element){
+			console.log("hello I'm a vote");
+			self.element = $(element);
+			self.vote_url = $(self.element).attr("href");
+			self.attachEvents();
+		}
+		self.attachEvents = function(){
+			$(self.element).click(function(){
+				self.doVote();
+				event.preventDefault();
+				return false;
+			});
+		}
+		self.doVote = function(){
+
+			//Send post to URL, the server will look for existing votes,
+			//if existing vote found it un-votes, else it votes up
+			//Server will respond with new vote count
+			$.ajax({
+				type: "POST",
+				url: (self.vote_url),
+				success: function(data){
+					console.log(data);
+					$(self.element).text("+" + data.vote_count).removeClass("animated wobble").fadeIn(1).addClass("animated wobble");
+				}
+			});
+
+		}
+		self.init(link);
+	}
+
 	self.init();
 
 }

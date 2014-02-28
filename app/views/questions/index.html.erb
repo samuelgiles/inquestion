@@ -2,65 +2,46 @@
   <title>inquestion - Questions - <%= @sort_title %></title>
 <% end %>
 <div class="row">
-	<div class="col6">
-		
-		<div class="col-element answer has-jumbo-input">
-			<input class="jumbo-input" placeholder="Search by tag" type="text" />
-		</div>
+	<div class="col5">
 
-		<div class="col-element has-header">
-			
-			<h3>#unit22</h3>
-			<p>22 Questions - Popular Questions:</p>
-
-			<ul class="question_list">
-				<li class="question">
-					<div class="question-top">
-						<a class="question-votes" href="#">+53</a><h3><a href="#">What does SMB stand for?</a></h3>
-					</div>
-				</li>
+		<div class="col-element has-header answer has-option">
+			<h1>Questions</h1>
+			<ul>
+				<li>There are currently <strong>52 questions</strong></li>
+				<li>Around <strong>twenty two percent</strong> of questions have been answered</li>
+				<li><strong>33 tags</strong> are currently in use</li>
+				<li>The most recent question was <strong>asked around 52 minutes ago</strong></li>
 			</ul>
-
-		</div>
-
-		<div class="col-element has-header">
-			
-			<h3>#unit22</h3>
-			<p>22 Questions - Popular Questions:</p>
-
-			<ul class="question_list">
-				<li class="question">
-					<div class="question-top">
-						<a class="question-votes" href="#">+53</a><h3><a href="#">What does SMB stand for?</a></h3>
-					</div>
-				</li>
-				<li class="question">
-					<div class="question-top">
-						<a class="question-votes" href="#">+53</a><h3><a href="#">What does SMB stand for?</a></h3>
-					</div>
-				</li>
-			</ul>
-
 		</div>
 
 	</div>
-	<div class="col6">
-		<div class="col-element has-header answer has-option">
-			<h2><%= @sort_title %></h2>
+	<div class="col7">
+
+		<div class="col-element answer has-header has-option">
+			<h3>Search for a Question</h3>
+			<form class="">
+				<div>
+					<input type="text" name="" />
+				</div>
+			</form>
+		</div>
+
+		<div class="col-element has-header grey has-option">
+			<h3><%= @sort_title %></h3>
 			<a href="#" class="header_option" data-sort-menu="#question-menu"><%= @sort_title.sub! " Questions", "" %> <i class="icon icon-arrow-down"></i></a>
 			<ul class="sortmenu" id="question-menu">
 				<li><a href="?popular=1">Popular</a></li>
 				<li><a href="?new=1">New</a></li>
 				<li><a href="?answered=1">Answered</a></li>
 			</ul>
-			
+
 			<% if @questions.length > 0 %>
 				<ul class="question_list">
-					
+
 					<% @questions.each do |q| %>
 					<li class="question">
 						<div class="question-top">
-							<a class="question-votes" href="#">+<%=q.votes.count %></a><h3><%= link_to q.title, q %></h3>
+							<%= link_to ("+" + q.votes.count.to_s), question_do_vote_path(q), :class => "question-votes vote" %><h3><%= link_to q.title, q %></h3>
 						</div>
 						<p><%= q.content %></p>
 						<div class="question-bottom">
@@ -76,12 +57,10 @@
 
 				</ul>
 			<% else %>
-			
+
 				<p>Unfortunately there don't appear to be any <%= @sort_title.downcase %> questions. Bummer.</p>
 
 			<% end %>
 		</div>
 	</div>
 </div>
-
-

@@ -56,6 +56,28 @@ class QuestionsController < ApplicationController
 
   end
 
+  def vote
+
+    #Check to see if the user has voted or not already, need to send this back:
+    @question = Question.find(params[:question_id])
+    @has_vote_from = Question.where(:id => @question.id).has_vote_from(current_user.id).length
+    @voted = @has_vote_from > 0 ? true : false
+
+    if @voted
+      #unvote:
+      Vote.where(:question_id => @question.id).where(:user_id => current_user.id).delete_all
+    else
+      Vote.create({:question_id => @question.id, :user_id => current_user.id})
+    end
+
+    respond_to do |format|
+
+      format.json { render json: {success: true, voted: @voted, vote_count: @question.votes.count} }
+
+    end
+
+  end
+
   private
   	def question_params
   		params.require(:question).permit(:title, :content, :tag_list)
