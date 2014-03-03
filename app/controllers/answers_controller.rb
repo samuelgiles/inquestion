@@ -21,24 +21,30 @@ class AnswersController < ApplicationController
 		  	@answer.save
 
 			redirect_to @question
-		else
-			#question not found?
+
 		end
 		
 	end
 
-	#removes answer, deletes any references to it (comments)
-	def remove
-
-	end
-
-	#add vote to answer as the current_user
 	def vote
 
-	end
+		#Check to see if the user has voted or not already, need to send this back:
+		@answer = Answer.find(params[:answer_id])
+		@has_vote_from = Answer.where(:id => @answer.id).has_vote_from(current_user.id).length
+		@voted = @has_vote_from > 0 ? true : false
 
-	#remove vote from answer for the current_user
-	def unvote
+		if @voted
+			#unvote:
+			AnswerVote.where(:answer_id => @answer.id).where(:user_id => current_user.id).delete_all
+		else
+			@answer.votes.create({:user_id => current_user.id})
+		end
+
+		respond_to do |format|
+
+			format.json { render json: {success: true, voted: @voted, vote_count: @answer.votes.count} }
+
+		end
 
 	end
 
@@ -46,10 +52,6 @@ class AnswersController < ApplicationController
 	def accept
 		#check that the question owner is the same as the current user
 			#mark as accepted
-	end
-
-	#show all the questions a user has answered
-	def myanswers
 	end
 
 	private

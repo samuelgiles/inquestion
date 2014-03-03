@@ -2,11 +2,13 @@ class Answer < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   belongs_to :question
   belongs_to :user
-  has_many :answer_votes
+
+  has_many :votes, :class_name => "AnswerVote"
+  scope :has_vote_from, lambda {|userid| joins(:votes).where("answer_votes.user_id = ?", userid )}
 
   def votecount
 
-  	self.answer_votes.count
+  	self.votes.count
 
   end
 
