@@ -1,0 +1,8 @@
+<li class="answer <%= a == a.question.accepted_answer ? "accepted" : "" %>">
+	<% if a == a.question.accepted_answer %>
+	<h2>ACCEPTED ANSWER</h2>
+	<% end %>
+	<%= link_to ("+" + a.votes.count.to_s), question_answer_vote_path(a.question,a), :class => "answer-votes vote" %>
+	<p><%= a.content %></p>
+	<a href="#" class="answer-author">by <cite><%= a.user.forename + " " + a.user.surname %></cite></a>
+</li>

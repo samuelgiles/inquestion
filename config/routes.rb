@@ -11,6 +11,7 @@ Inquestion::Application.routes.draw do
   resources :questions do
     resources :answers do
       resources :comments
+      post 'vote' => 'answers#vote', as: :vote
     end
     post 'vote' => 'questions#vote', as: :do_vote
     resources :comments
