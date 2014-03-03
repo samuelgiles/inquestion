@@ -79,6 +79,7 @@ function inquestion_admin(){
 			$(self.employerMap.element).hide();
 		}
 	}
+	self.init();
 
 }
 
@@ -410,7 +411,6 @@ function inquestion_frontend(){
 		self.element = null;
 		self.vote_url = null;
 		self.init = function(element){
-			console.log("hello I'm a vote");
 			self.element = $(element);
 			self.vote_url = $(self.element).attr("href");
 			self.attachEvents();
@@ -423,15 +423,11 @@ function inquestion_frontend(){
 			});
 		}
 		self.doVote = function(){
-
-			//Send post to URL, the server will look for existing votes,
-			//if existing vote found it un-votes, else it votes up
-			//Server will respond with new vote count
+			
 			$.ajax({
 				type: "POST",
 				url: (self.vote_url),
 				success: function(data){
-					console.log(data);
 					$(self.element).text("+" + data.vote_count).removeClass("animated wobble").fadeIn(1).addClass("animated wobble");
 				}
 			});
