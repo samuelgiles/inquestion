@@ -1,5 +1,5 @@
 Inquestion::Application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => { :registrations => "registrations" }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -12,6 +12,7 @@ Inquestion::Application.routes.draw do
     resources :answers do
       resources :comments
       post 'vote' => 'answers#vote', as: :vote
+      get 'accept' => 'answers#accept', as: :accept
     end
     post 'vote' => 'questions#vote', as: :do_vote
     resources :comments
@@ -37,10 +38,12 @@ Inquestion::Application.routes.draw do
   get 'about' => 'application#about', as: :about_page
   get 'terms' => 'application#terms', as: :terms_page
   get 'privacy' => 'application#privacy', as: :privacy_page
+  get 'welcome' => 'application#welcome', as: :welcome_page
 
   get 'notifications/check' => 'notifications#check', as: :notification_check
   get 'notifications' => 'notifications#index', as: :notification_index
   post 'notifications/clear' => 'notifications#clear', as: :notification_clear
+  get 'solver' => 'questions#solver', as: :question_solver
 
   namespace :admin do
     get '/' => 'admin#admin', as: :index

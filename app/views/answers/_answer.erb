@@ -1,8 +1,13 @@
 <li class="answer <%= a == a.question.accepted_answer ? "accepted" : "" %>">
-	<% if a == a.question.accepted_answer %>
-	<h2>ACCEPTED ANSWER</h2>
-	<% end %>
+	
 	<%= link_to ("+" + a.votes.count.to_s), question_answer_vote_path(a.question,a), :class => "answer-votes vote" %>
+	<% if current_user.id == a.question.user.id %>
+		<a href="<%= url_for question_answer_accept_path(a.question,a) %>">
+	<% end %>
 	<p><%= a.content %></p>
-	<a href="#" class="answer-author">by <cite><%= a.user.forename + " " + a.user.surname %></cite></a>
+	<% if current_user.id == a.question.user.id %>
+		</a>
+	<% end %>
+	<a href="#" class="answer-author"><%= time_ago_in_words(a.created_at) %> ago by <cite><%= a.user.forename + " " + a.user.surname %></cite></a>
+	
 </li>

@@ -50,8 +50,16 @@ class AnswersController < ApplicationController
 
 	#accept an answer
 	def accept
-		#check that the question owner is the same as the current user
+
+		@question = Question.find(params[:question_id])
+		@answer = Answer.find(params[:answer_id])
+		if current_user.id == @question.user.id
 			#mark as accepted
+			@question.accepted_answer = @answer
+			@question.save
+		end
+		redirect_to @question, :notice => "Successfully marked question as answered"
+
 	end
 
 	private

@@ -7,7 +7,7 @@ class Question < ActiveRecord::Base
 	belongs_to :user
 	has_many :answers
 	belongs_to :accepted_answer, :class_name => "Answer", :foreign_key => :answer_id
-
+	
 	has_many :questiontags
 	has_many :tags, through: :questiontags
 	has_many :votes
