@@ -9,6 +9,6 @@
 			<li><%= link_to "#" + qt.title, qt %></li>
 			<% end %>
 		</ul>
-		<span>- asked by <a href="#"><%= q.user.full_name %></a></span>
+		<span>- asked by <a href="#"><%= q.user.full_name %> - <%= time_ago_in_words(q.created_at) %> ago</a></span>
 	</div>
 </li>
