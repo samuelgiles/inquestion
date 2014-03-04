@@ -1,0 +1,40 @@
+<% content_for :head do %>
+  <title>inquestion - Welcome</title>
+  <link rel="author" href="https://plus.google.com/+SamuelGiles93" />
+<% end %>
+<% content_for :cover do %>
+Welcome to inquestion
+<% end %>
+
+<div class="row">
+	<div class="col4">
+
+		<h2>Get started:</h2>
+		
+		<%= link_to "View Questions", questions_path, class: "button answer" %>
+		<%= link_to "Ask a Question", new_question_path, class: "button ask" %>
+		
+	</div>
+	<div class="col8">
+		
+		<div class="row">
+			<p class="col12">Help us create a better knowledgebase by being an active member of the site - vote on questions and answers, tag your questions and mark answers to questions as accepted.</p>
+			<div class="col6">
+				<div class="col-element has-header grey">
+					<h4>Voting</h4>
+					<p>Vote up questions that you want answered and vote up answers that you find useful - you'll help create a better knowledgebase for future users.</p>
+				</div>
+			</div>
+
+			<div class="col6">
+			
+				<div class="col-element has-header grey">
+					<h4>Asking</h4>
+					<p>Tag your questions accurately to make them easier to find, ensure you check the suggested possible answers to see if the same question has been answered in the past.</p>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+</div>

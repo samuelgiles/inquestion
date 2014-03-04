@@ -1,5 +1,5 @@
 <% content_for :head do %>
-  <title>inquestion - Sign Up</title>
+  <title>inquestion - Sign up for an account to start asking questions</title>
 <% end %>
 
 <div class="row">
@@ -21,22 +21,12 @@
 		  	<div><%= f.label :email %>
 			<%= f.email_field :email %></div>
 
-		  	<div><%= f.label :employerName, "Employer Name" %>
-		  	<%= f.text_field :employerName %></div>
-
-		  	<div><%= f.label :employerAddress, "Employer Address" %>
-		  	<%= f.text_area :employerAddress %></div>
-
 			<div><%= f.label :password %>
 			<%= f.password_field :password %></div>
 
 			<div><%= f.label :password_confirmation %>
 			<%= f.password_field :password_confirmation %></div>
-
-			<div><%= f.label :assessor %>
-			<%= f.collection_select(:assessor, User.admins, :id, :forename, {include_blank: 'Please select your assessor'}) %></div>
-
-
+			
 			<div><%= f.submit "Sign up" %></div>
 		<% end %>
 		

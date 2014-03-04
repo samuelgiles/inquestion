@@ -20,6 +20,8 @@ class ApplicationController < ActionController::Base
   end
   def privacy
   end
+  def welcome
+  end
 
   def online_users
   @online_users ||= User.where('last_seen > ?', 5.minutes.ago).count

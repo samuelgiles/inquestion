@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
   after_create :create_new_user_notification
   def create_new_user_notification
     
-    self.assessor.notifications.create(:content => "has signed up", :author => self)
+    #User.admins.notifications.create(:content => "has signed up", :author => self)
 
   end
 
