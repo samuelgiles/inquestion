@@ -313,6 +313,7 @@ h4{
   p.sub-header{
     margin: 0px;
     margin-bottom: 10px;
+    font-size: 0.9em;
   }
 }
 .has-option{
@@ -777,12 +778,33 @@ dl{
 .col-form{
   padding-bottom: 15px;
 }
+.accept-prompt{
+  background-color: #70b02b;
+  color: #fff;
+  font-size: 1.2em;
+  padding: 5px;
+  margin: 0px;
+  margin-bottom: 13px;
+}
 .answers{
   .ul-reset;
   padding-top: 5px;
   .answer{
     .clearfix();
     margin-bottom: 10px;
+    background-color: lighten(@grey,65%);
+    border: 1px solid lighten(@grey,63%);
+    padding: 5px;
+    .accept-answer{
+      font-size: 20px;
+      border-bottom: 3px solid #406db8;
+      display: block;
+      margin-bottom: 6px;
+      background-color: #406db8;
+      color: #fff;
+      padding: 3px;
+      padding-left: 7px;
+    }
     .answer-votes{
       float: left;
       width: 10%;
@@ -795,6 +817,7 @@ dl{
       width: 90%;
       margin: 0px;
       font-size: 24px;
+      color: @bodycolour;
     }
     .answer-author{
       text-decoration: none;
@@ -811,6 +834,9 @@ dl{
     &.accepted{
       background-color: @colourAsk;
       color: #fff;
+      outline: 5px solid @colourAsk;
+      margin-bottom: 15px;
+      border: none;
       h2{
         font-size: 14px;
         color: #fff;
@@ -822,6 +848,11 @@ dl{
       }
       .answer-votes{
         padding-left: 5px;
+      }
+      &:before{
+        content: "ACCEPTED ANSWER";
+        font-size: 15px;
+        margin-bottom: 9px;
       }
     }
   }
