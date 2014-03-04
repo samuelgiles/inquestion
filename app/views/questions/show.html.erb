@@ -18,7 +18,7 @@
 
 	<div class="col-element has-header ask has-seperator single-question question">
 		<h2 class="no-theme"><%= @question.title %></h2>
-		<p class="sub-header">asked by <%= (@question.user.forename + " " + @question.user.surname) %> at <%= @question.created_at.strftime("%H:%M on #{@question.created_at.day.ordinalize} %B %Y ")  %></p>
+		<p class="sub-header">asked by <%= @question.user.id == current_user.id ? "you" : (@question.user.forename + " " + @question.user.surname) %> at <%= @question.created_at.strftime("%H:%M on #{@question.created_at.day.ordinalize} %B %Y ")  %></p>
 		
 		<p><%= @question.content %></p>
 		
@@ -55,6 +55,9 @@
 		<p>Nobody has answered this question</p>
 		<% else %>
 			
+			<% if @question.user.id == current_user.id %>
+				<p class="accept-prompt">To accept an answer just click it</p>
+			<% end %>
 			<ul class="answers">
 			<% @question.answers.each do |a| %>
 				<% if a.content != nil %>
