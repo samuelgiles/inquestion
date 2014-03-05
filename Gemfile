@@ -35,6 +35,8 @@ gem 'normalize-rails'
 
 gem 'sitemap_generator'
 
+gem 'textacular', '~> 3.0'
+
 gem 'devise_lastseenable', :git => 'git://github.com/ctide/devise_lastseenable'
 
 gem 'groupdate', :git => 'git://github.com/mieko/groupdate/', :ref => 'f75a3d47a27a7351998555a5bfe532a7be9248ed'
