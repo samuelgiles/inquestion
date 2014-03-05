@@ -78,6 +78,20 @@ class QuestionsController < ApplicationController
 
   end
 
+  def solver
+
+    #get questions using textacular, 10 limit
+    #also get questions by matching the tags, 5 limit
+    #run unique against them, put tag ones below textacular ones
+    #fetch top 10
+    @questions = Question.fuzzy_search(params[:search])
+    #@questions = Question.fuzzy_search(params[:search])
+    @answers = Answer.fuzzy_search(params[:search])
+
+    render :layout => false
+
+  end
+
   private
   	def question_params
   		params.require(:question).permit(:title, :content, :tag_list)

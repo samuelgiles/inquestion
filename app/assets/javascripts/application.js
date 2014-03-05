@@ -122,19 +122,65 @@ function inquestion_frontend(){
 	//Setup the ask a question page
 	self.setupAsk = function(){
 
+		$("#question-similar-loading").hide();
 		$("#question-similar-answers, #question-similar-questions").hide();
 		$("#new_question input, #new_question textarea").keydown(function(){
-			self.askSimilarLookup();
+			
+			if(self.askSimilarLookupTimeout != 0){
+				clearTimeout(self.askSimilarLookupTimeout);
+			}
+			$("#question-similar-loading").slideDown(300);
+			self.askSimilarLookupTimeout = setTimeout(self.askSimilarLookup, 1000);
+			
 		});
 
 	}
 
+	self.askSimilarLookupTimeout = null;
+
 	//Method that gets called every time a field changes in the ask a question form
 	//Gets potentially relevant questions and answers and displays them alongside the form
 	self.askSimilarLookup = function(){
-		$("#question-help").slideUp(400,function(){
-			$("#question-similar-answers, #question-similar-questions").fadeIn(1000);
-		})
+
+		//Hide help
+		if(!$("#question-help").hasClass("done")){
+			$("#question-help").addClass("done");
+			$("#question-help").slideUp(400);
+		}
+
+		$("#question-similar-answers").slideUp(300);
+		$("#question-similar-questions").slideUp(300);
+
+		//Combine title, tags and question as its a trigram search
+		$.ajax({
+			type: "POST",
+			data: {"search": $("#question_title").val() + $("#question_tag_list").val() + $("#question_content").val()},
+			url: ("/solver"),
+			success: function(data){
+
+				var newAnswers = $(".answers li", $(data));
+				var newQuestions = $(".questions li", $(data));
+
+				if(!$(".answers li", $(data)).length > 0){
+					newAnswers = $("<li class=\"no-data\">We couldn't find any possible answers.</li>");
+				}
+				if(!$(".questions li", $(data)).length > 0){
+					newQuestions = $("<li class=\"no-data\">We couldn't find any possible questions.</li>");
+				}
+				
+				$("li", "#question-similar-answers .answers").remove();
+				$("#question-similar-answers .answers").append(newAnswers);
+				$("#question-similar-answers").slideDown(300);
+			
+				$("li", "#question-similar-questions .question_list").remove();
+				$("#question-similar-questions .question_list").append(newQuestions);
+				$("#question-similar-questions").slideDown(300);
+
+				$("#question-similar-loading").slideUp(300);
+
+			}
+		});
+		
 	}
 
 	self.notifications = {

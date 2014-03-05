@@ -2,9 +2,12 @@
   <title>inquestion - Ask a Question</title>
 <% end %>
 
-<div class="col7">
+<div class="col12">
 	<h2>Ask a Question</h2>
 	<p>Tell us about your question, we'll try to find similar questions as you type it</p>
+</div>
+
+<div class="col7">
 	<%= form_for @question do |f| %>
 		<% if @question.errors.any? %>
 			<div id="error_explanation">
@@ -31,17 +34,20 @@
 			<li><strong>Add detail to your question: </strong>Explain exactly what you want to be answered, e.g. "I'm having trouble understanding how a static method is different from a normal method, what is the difference? What are the advantages/disadvantages of both?"</li>
 		</ul>
 	</div>
-
+	
+	<div id="question-similar-loading">Please wait, loading possible questions and answers...</div>
 	<div id="question-similar-answers" class="col-element has-header ask">
-		<h3>Similar Accepted Answers</h3>
+
+		<h3>Possible Answers</h3>
 		<ul class="answers">
 			<li class="answer">
-				<a href="#" class="answer-votes vote">+22</a>
-				<p>Hello this is a fairly long answer to the following question...</p>
+				<p style="text-align: center; width: 100%; display: block;">Loading possible answers</p>
 			</li>
 			<li class="answer">
-				<a href="#" class="answer-votes">+0</a>
-				<p>Hello this is a fairly long answer to the following question...</p>
+				<p style="text-align: center; width: 100%; display: block;">Loading possible answers</p>
+			</li>
+			<li class="answer">
+				<p style="text-align: center; width: 100%; display: block;">Loading possible answers</p>
 			</li>
 		</ul>
 	</div>
@@ -50,12 +56,7 @@
 		<ul class="question_list">
 			<li class="question">
 				<div class="question-top">
-					<a class="question-votes" href="#">+53</a><h3><a href="#">What does SMB stand for?</a></h3>
-				</div>
-			</li>
-			<li class="question">
-				<div class="question-top">
-					<a class="question-votes" href="#">+53</a><h3><a href="#">What does SMB stand for?</a></h3>
+					<p style="text-align: center; width: 100%; margin:0px; display: block;">Loading similar questions</p>
 				</div>
 			</li>
 		</ul>

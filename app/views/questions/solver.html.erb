@@ -1,0 +1,16 @@
+<div>
+	<ul class="answers">
+		<% @answers.each do |answer| %>
+			<li class="answer">
+				<%= link_to truncate(answer.content, length: 100), question_path(answer.question) %> 
+			</li>
+		<% end %>
+	</ul>
+	<ul class="question_list">
+		<% @questions.each do |question| %>
+			<li class="question">
+				<%= link_to truncate(question.title, length: 100), question_path(question) %> 
+			</li>
+		<% end %>
+	</ul>
+</div>
