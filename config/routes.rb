@@ -43,7 +43,7 @@ Inquestion::Application.routes.draw do
   get 'notifications/check' => 'notifications#check', as: :notification_check
   get 'notifications' => 'notifications#index', as: :notification_index
   post 'notifications/clear' => 'notifications#clear', as: :notification_clear
-  get 'solver' => 'questions#solver', as: :question_solver
+  post 'solver' => 'questions#solver', as: :question_solver
 
   namespace :admin do
     get '/' => 'admin#admin', as: :index
