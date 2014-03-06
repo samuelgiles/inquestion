@@ -7,7 +7,7 @@
 		<div class="col-element has-header answer has-option">
 			<h1>Questions</h1>
 			<ul>
-				<li>There are currently <strong><%= pluralize(@question_count, "question") %></strong></li>
+				<li>There <%= @question_count == 1 ? "is" : "are" %> currently <strong><%= pluralize(@question_count, "question") %></strong></li>
 				<li>Around <strong><%= @percent_answered.humanize %> percent</strong> of questions have been answered</li>
 				<li><strong><%= pluralize(@tag_count, "tag") %></strong> are currently in use</li>
 				<li>The most recent question was <strong>asked around <%= time_ago_in_words(@last_question_updated_at) %></strong></li>
