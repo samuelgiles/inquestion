@@ -38,6 +38,11 @@ class QuestionsController < ApplicationController
   #display all
   def index
 
+    @question_count = Question.count
+    @percent_answered = (Question.answered.count.to_f / @question_count.to_f * 100).round(0)
+    @tag_count = Tag.count
+    @last_question_updated_at = (Question.limit(1).order(:created_at).first).created_at
+
     #sort types:
     #popular : questions measured by the number of answers in the last 6 weeks (this could change is service is popular)
     #new : questions by created_at
