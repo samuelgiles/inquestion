@@ -39,7 +39,11 @@ class QuestionsController < ApplicationController
   def index
 
     @question_count = Question.count
-    @percent_answered = (Question.answered.count.to_f / @question_count.to_f * 100).round(0)
+    if @question_count > 0
+      @percent_answered = (Question.answered.count.to_f / @question_count.to_f * 100).round(0)
+    else
+      @percent_answered = 0
+    end
     @tag_count = Tag.count
     @last_question_updated_at = (Question.limit(1).order(:created_at).first).created_at
 
