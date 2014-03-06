@@ -164,7 +164,7 @@ function inquestion_frontend(){
 				if(!$(".answers li", $(data)).length > 0){
 					newAnswers = $("<li class=\"no-data\">We couldn't find any possible answers.</li>");
 				}
-				if(!$(".questions li", $(data)).length > 0){
+				if(!$(".question_list li", $(data)).length > 0){
 					newQuestions = $("<li class=\"no-data\">We couldn't find any possible questions.</li>");
 				}
 				
