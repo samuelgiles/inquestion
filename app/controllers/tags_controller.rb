@@ -4,7 +4,7 @@ class TagsController < ApplicationController
 
 		@tag = Tag.find(params[:id])
 		@number_of_questions_in_tag = Question.has_tag(@tag.title).count
-		@last_question_update = Question.has_tag(@tag.title).select("questions.updated_at").order(:updated_at).first.updated_at
+		@last_question_update = Question.has_tag(@tag.title).select("questions.updated_at").order(:updated_at).first.try(:updated_at)
 		@percent_answered = (Question.has_tag(@tag.title).answered.count.to_f / @number_of_questions_in_tag.to_f * 100).round(0)
 		@number_of_knowledge_users = User.has_knowledge(@tag.title).count
 		@questions = Question.has_tag(@tag.title).paginate(:page => params[:page], :per_page => 3)
