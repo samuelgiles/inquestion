@@ -7,7 +7,7 @@ class Answer < ActiveRecord::Base
   scope :has_vote_from, lambda {|userid| joins(:votes).where("answer_votes.user_id = ?", userid )}
 
   include PgSearch
-  pg_search_scope :search, :against => [:content], :using => [:trigram]
+  pg_search_scope :search, :against => [:content], :using => :trigram
 
   def votecount
 
