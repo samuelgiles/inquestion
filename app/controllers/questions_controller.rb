@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-  before_action :authenticate_user!, :only => [:create, :new, :myquestions]
+  before_action :authenticate_user!, :only => [:create, :new, :myquestions, :vote]
 
   def new
 
