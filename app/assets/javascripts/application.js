@@ -244,7 +244,7 @@ function inquestion_frontend(){
 		},
 		setTick: function(){
 			window.clearInterval(window.inquestionNotificationInterval);
-			window.inquestionNotificationInterval = window.setInterval(function(){ inquestionFrontend.notifications.check(); }, 20000);
+			window.inquestionNotificationInterval = window.setInterval(function(){ inquestionFrontend.notifications.check(); }, 5000);
 		},
 		check: function(){
 			$.ajax({
