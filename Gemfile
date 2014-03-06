@@ -35,7 +35,7 @@ gem 'normalize-rails'
 
 gem 'sitemap_generator'
 
-gem 'textacular', '~> 3.0'
+gem 'pg_search'
 
 gem 'devise_lastseenable', :git => 'git://github.com/ctide/devise_lastseenable'
 

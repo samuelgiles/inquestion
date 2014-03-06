@@ -6,6 +6,9 @@ class Answer < ActiveRecord::Base
   has_many :votes, :class_name => "AnswerVote"
   scope :has_vote_from, lambda {|userid| joins(:votes).where("answer_votes.user_id = ?", userid )}
 
+  include PgSearch
+  pg_search_scope :search, :against => [:content], :using => [:trigram]
+
   def votecount
 
   	self.votes.count
