@@ -19,7 +19,9 @@ class Answer < ActiveRecord::Base
   def create_new_answer_notification
     
   	u = self.question.user
-  	u.notifications.create(:content => "has answered your question \"#{self.question.title}\"", :author => self.user, :link => question_path(:id => self.question.id))
+    if self.question.user.id != self.user.id
+  	 u.notifications.create(:content => "has answered your question \"#{self.question.title}\"", :author => self.user, :link => question_path(:id => self.question.id))
+    end
 
   end
 
