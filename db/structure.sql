@@ -95,7 +95,7 @@ ALTER SEQUENCE answer_votes_id_seq OWNED BY answer_votes.id;
 
 CREATE TABLE answers (
     id integer NOT NULL,
-    content character varying(255),
+    content text,
     question_id integer,
     user_id integer,
     created_at timestamp without time zone,
@@ -333,7 +333,7 @@ ALTER SEQUENCE pg_search_documents_id_seq OWNED BY pg_search_documents.id;
 CREATE TABLE questions (
     id integer NOT NULL,
     title character varying(255),
-    content character varying(255),
+    content text,
     user_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -966,3 +966,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140225124057');
 INSERT INTO schema_migrations (version) VALUES ('20140306003020');
 
 INSERT INTO schema_migrations (version) VALUES ('20140306011832');
+
+INSERT INTO schema_migrations (version) VALUES ('20140306220637');
