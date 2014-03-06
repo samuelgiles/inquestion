@@ -24,15 +24,13 @@
 		
 		<ul class="question-tags">
 			<% @question.tags.each do |t| %>
-				<li><a href="#">#<%= t.title %></a></li>
+				<li><%= link_to "#" + t.title, t %></li>
 			<% end %>
 		</ul>
 
 		<p class="question-votes-detail">
 			<a href="#" class="btn ask">[+<%= @question.votes.count %>] Click here to vote for this question <%= @question.answered ? " to be answered" : "" %></a>
 		</p>
-
-		
 
 	</div>
 
