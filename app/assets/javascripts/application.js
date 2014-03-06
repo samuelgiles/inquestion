@@ -159,7 +159,7 @@ function inquestion_frontend(){
 			success: function(data){
 
 				var newAnswers = $(".answers li", $(data));
-				var newQuestions = $(".questions li", $(data));
+				var newQuestions = $(".question_list li", $(data));
 
 				if(!$(".answers li", $(data)).length > 0){
 					newAnswers = $("<li class=\"no-data\">We couldn't find any possible answers.</li>");
