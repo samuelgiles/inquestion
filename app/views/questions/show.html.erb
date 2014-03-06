@@ -18,20 +18,21 @@
 
 	<div class="col-element has-header ask has-seperator single-question question">
 		<h2 class="no-theme"><%= @question.title %></h2>
-		<p class="sub-header">asked by <%= @question.user.id == current_user.id ? "you" : (@question.user.forename + " " + @question.user.surname) %> at <%= @question.created_at.strftime("%H:%M on #{@question.created_at.day.ordinalize} %B %Y ")  %></p>
+		<p class="sub-header">asked by <%= @question.user.id == current_user.try(:id) ? "you" : (@question.user.forename + " " + @question.user.surname) %> at <%= @question.created_at.strftime("%H:%M on #{@question.created_at.day.ordinalize} %B %Y ")  %></p>
 		
 		<p><%= @question.content %></p>
 		
-		<p class="question-votes-detail">
-			<%= pluralize(@question.votes.count, 'vote') %> 
-			<a href="#" class="btn ask">Click here to vote for this question <%= @question.answered ? " to be answered" : "" %></a>
-		</p>
-
 		<ul class="question-tags">
 			<% @question.tags.each do |t| %>
 				<li><a href="#">#<%= t.title %></a></li>
 			<% end %>
 		</ul>
+
+		<p class="question-votes-detail">
+			<a href="#" class="btn ask">[+<%= @question.votes.count %>] Click here to vote for this question <%= @question.answered ? " to be answered" : "" %></a>
+		</p>
+
+		
 
 	</div>
 
@@ -55,7 +56,7 @@
 		<p>Nobody has answered this question</p>
 		<% else %>
 			
-			<% if @question.user.id == current_user.id %>
+			<% if @question.user.id == current_user.try(:id) %>
 				<p class="accept-prompt">To accept an answer just click it</p>
 			<% end %>
 			<ul class="answers">
