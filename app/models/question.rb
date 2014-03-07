@@ -38,7 +38,10 @@ class Question < ActiveRecord::Base
 	scope :has_vote_from, lambda {|userid| joins(:votes).where(:votes => { :user_id => userid })}
 
 	include PgSearch
-	pg_search_scope :search, :against => [:title, :content], :using => { :trigram => { :threshold => 0.1 } }
+	pg_search_scope :search, :against => {
+    :title => 'A',
+    :content => 'B'
+  	}, :using => { :tsearch => {:prefix => true, :dictionary => "english"} }
 
 	def tag_list
 		tags.map(&:title).join(", ")
