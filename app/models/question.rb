@@ -49,7 +49,7 @@ class Question < ActiveRecord::Base
 
 	def tag_list=(titles)
 		self.tags = titles.split(",").map do |n|
-    		Tag.where(title: n.strip).first_or_create do |t|
+    		Tag.where(title: (n.strip).downcase).first_or_create do |t|
     			t.user = self.user
     		end 
   		end
