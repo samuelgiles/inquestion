@@ -191,16 +191,15 @@ function inquestion_frontend(){
 			self.target = $(".mobile-menu");
 			self.elements = $(".bar-left,.bar-right");
 			self.target.click(function(){
-				if(self.isOpen){
-					self.close();
-				}
-				else{
-					self.open();
-				}
+				self.toggle();
 				event.preventDefault();
 				return false;
 			});
+			$(window).resize(function(){
+				self.resize();
+			});
 		}
+		self.triggerSize = 800;
 		self.target = null;
 		self.elements = null;
 		self.open = function(){
@@ -215,6 +214,23 @@ function inquestion_frontend(){
 			self.isOpen = false;
 			self.elements.slideUp(300);
 			self.target.html("Menu");
+
+		}
+		self.toggle = function(){
+
+			if(self.isOpen){
+				self.close();
+			}
+			else{
+				self.open();
+			}
+			
+		}
+		self.resize = function(){
+
+			if(parseInt($("#media").css("z-index")) > self.triggerSize && !self.isOpen){
+				self.elements.attr("style", "");
+			}
 
 		}
 		self.init();
