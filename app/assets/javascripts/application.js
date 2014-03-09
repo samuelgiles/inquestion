@@ -113,6 +113,7 @@ function inquestion_frontend(){
 		$(".datepicker").datepicker();
 
 		self.knowledgeAreas.init();
+		new self.mobileMenu();
 
 	}
 	self.oneInit = function(){
@@ -182,7 +183,43 @@ function inquestion_frontend(){
 		});
 		
 	}
+	self.mobileMenu = function(){
 
+		var self = this;
+		self.isOpen = false;
+		self.init = function(){
+			self.target = $(".mobile-menu");
+			self.elements = $(".bar-left,.bar-right");
+			self.target.click(function(){
+				if(self.isOpen){
+					self.close();
+				}
+				else{
+					self.open();
+				}
+				event.preventDefault();
+				return false;
+			});
+		}
+		self.target = null;
+		self.elements = null;
+		self.open = function(){
+
+			self.isOpen = true;
+			self.elements.slideDown(300);
+			self.target.html("Close Menu");
+
+		}
+		self.close = function(){
+
+			self.isOpen = false;
+			self.elements.slideUp(300);
+			self.target.html("Menu");
+
+		}
+		self.init();
+
+	}
 	self.notifications = {
 		currentCount: 0,
 		setup: function(){
@@ -489,13 +526,40 @@ function inquestion_frontend(){
 var inquestionFrontend = null;
 $(document).ready(function () {
 
-	$(".selectize").selectize({
-		highlight: true,
-		create: false
-	});
 
 	inquestionAdmin = new inquestion_admin();
 	inquestionFrontend = new inquestion_frontend();
+
+	$(".tag-select").each(function(){
+
+		$(this).select2({
+			placeholder: "Tag your question",
+			ajax: {
+		        url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json",
+		        dataType: 'jsonp',
+		        quietMillis: 100,
+		        data: function (term, page) { // page is the one-based page number tracked by Select2
+		            return {
+		                q: term, //search term
+		                page_limit: 10, // page size
+		                page: page, // page number
+		                apikey: "ju6z9mjyajq2djue3gbvv26t" // please do not use so this example keeps working
+		            };
+		        },
+		        results: function (data, page) {
+		            return {results: data.tags, more: false};
+		        }
+		    },
+		    formatResult: function(tag){
+		    	return "<table class=\"tag-info\"><tr><td>" + tag.title + "</td></tr><tr><td><small>" + (parseInt(tag.count)) + " question" + (parseInt(tag.count) <= 9 ? "s" : "") + "</small></td></tr></table>";
+		    },
+		    formatSelection: tagFormatSelection,
+		    dropdownCssClass: "tag-select-expand",
+		    tokenSeparators: [",", " "],
+		    escapeMarkup: function (m) { return m; }
+		})
+
+	});
 
 
 }).on("page:change", function(){

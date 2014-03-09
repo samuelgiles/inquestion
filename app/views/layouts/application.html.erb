@@ -45,7 +45,11 @@
 				<% if current_user.admin %>
 					<%=link_to "Admin", :admin_index, class: "button" %>&nbsp;
 				<% end %>
-				<a href="#" class="button ask">My Questions [5]</a>&nbsp;<a href="#" class="button answer">My Answers [20]</a>&nbsp;<a href="#" id="notifications" class="button">Notifications [<%= current_user.notifications.unseen.count %>]</a>&nbsp;<%= link_to 'Profile', user_path(current_user), :class => "button secondary" %>&nbsp;<%= link_to 'Logout', destroy_user_session_path, :class => "button secondary" %>
+				<a href="#" class="button ask">My Questions [5]</a>
+				<a href="#" class="button answer">My Answers [20]</a>
+				<a href="#" id="notifications" class="button">Notifications [<%= current_user.notifications.unseen.count %>]</a>
+				<%= link_to 'Profile', user_path(current_user), :class => "button secondary" %>
+				<%= link_to 'Logout', destroy_user_session_path, :class => "button secondary" %>
 			</div>
 			<% else %>
 				<div class="bar-left">
@@ -55,6 +59,8 @@
 				<%= link_to 'Login to inquestion to ask and answer questions', new_user_session_path, :class => "" %>&nbsp;<%= link_to 'Login', new_user_session_path, :class => "button secondary" %>
 				</div>
 			<% end %>
+
+			<a href="#" class="mobile-menu">Menu</a>
 		</div>
 
 		<%= link_to image_tag("logo.png", :alt => 'inquestion', :id => "logo", :title => 'Back to Homepage'), :root %>

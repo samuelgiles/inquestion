@@ -1102,6 +1102,9 @@ ul.sortmenu{
     float: right;
   }
 }
+.mobile-menu{
+  display: none;
+}
 
 @media (max-width: 1200px) {
 
@@ -1131,6 +1134,28 @@ ul.sortmenu{
         padding: 0px;
       }
     }
+    .mobile-menu{
+      display: block;
+      width: 100%;
+      padding: 5px;
+      font-size: 1.4em;
+    }
+    #log_in_bar{
+      .bar-left, .bar-right{
+        display: none;
+        width: 100%;
+        a{
+          display: block;
+        }
+        .button{
+          border-radius: 0px;
+          padding: 10px;
+          font-size: 13px;
+          border-radius: 0px;
+        }
+      }
+    }
+    
   }
 
 }
