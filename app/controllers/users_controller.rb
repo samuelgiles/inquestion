@@ -127,7 +127,8 @@ class UsersController < ApplicationController
 			@user.assessor_user_id = nil
 			@user.coordinator = nil
 			@user.save
-			redirect_to user_path(@user), :notice => "Successfully transformed user into an assessor"
+			flash[:notice] = "Successfully transformed user into an assessor"
+			redirect_to user_path(@user)
 
 		end
 
@@ -148,7 +149,8 @@ class UsersController < ApplicationController
 			@user.assessor_user_id = nil
 
 			@user.save
-			redirect_to user_path(@user), :notice => "Successfully transformed user into an coordinator"
+			flash[:notice] = "Successfully transformed user into an coordinator"
+			redirect_to user_path(@user)
 
 		end
 
@@ -164,7 +166,8 @@ class UsersController < ApplicationController
 			@user.admin = nil
 
 			@user.save
-			redirect_to user_path(@user), :notice => "Successfully transformed user into an standard user"
+			flash[:notice] = "Successfully transformed user into an standard user"
+			redirect_to user_path(@user)
 
 		end
 

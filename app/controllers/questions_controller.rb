@@ -31,6 +31,15 @@ class QuestionsController < ApplicationController
 
   end
 
+  def destroy
+
+    redirect_to(root_path) unless current_user.is_admin
+    @question = Question.find(params[:id]).destroy
+    flash[:notice] = "Question deleted successfully"
+    redirect_to action: 'index'
+
+  end
+
   #show all the questions a user has asked
   def myquestions
   end

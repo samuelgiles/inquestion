@@ -45,7 +45,8 @@ class Admin::EmployersController < Admin::AdminController
 		@employer = Employer.find(params[:id])
 		@employer.apprentices.update_all(:employer_id => nil)
 		@employer.destroy
-		redirect_to :action => "index", :notice => "Employer successfully removed"
+		flash[:notice] = "Employer successfully removed"
+		redirect_to :action => "index"
 
 	end
 

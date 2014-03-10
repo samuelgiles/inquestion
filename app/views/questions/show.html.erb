@@ -34,6 +34,13 @@
 
 	</div>
 
+	<% if current_user.is_admin %>
+	<div class="col-element has-header ask">
+		<h3>Admin</h3>
+		<%= link_to "Remove question", question_path(@question), method: :delete, class: "button" %>
+	</div>
+	<% end %>
+
 </div>
 <div class="col6">
 	
