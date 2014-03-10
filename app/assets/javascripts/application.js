@@ -134,7 +134,7 @@ function inquestion_frontend(){
 				clearTimeout(self.askSimilarLookupTimeout);
 			}
 			$("#question-similar-loading").slideDown(300);
-			self.askSimilarLookupTimeout = setTimeout(self.askSimilarLookup, 1000);
+			self.askSimilarLookupTimeout = setTimeout(self.askSimilarLookup, 1750);
 			
 		});
 
