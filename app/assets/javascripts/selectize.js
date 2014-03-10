@@ -1462,10 +1462,9 @@
 					self.advanceSelection(1, e);
 					return;
 				case KEY_TAB:
-					if (self.isOpen && self.$activeOption) {
-						self.onOptionSelect({currentTarget: self.$activeOption});
+					if (self.settings.create && self.createItem()) {
+						e.preventDefault();
 					}
-					e.preventDefault();
 					return;
 				case KEY_SPACE:
 					if (self.isOpen && self.$activeOption) {
