@@ -614,7 +614,7 @@ form{
     clear: both;
     .clearfix();
   }
-  input,textarea,select,button{
+  input,textarea,select,button,.selectize-input{
     display: block;
     font-size: 18px;
     outline: none;
@@ -627,21 +627,18 @@ form{
     display: block;
     margin-bottom: 3px;
   }
-  input,textarea, select{
+  input,textarea,select,.selectize-input{
     background-color: lighten(@bodycolour,70%);
     width: 100%;
     &::-webkit-input-placeholder {
       color: lighten(@bodycolour, 40%);
     }
-
     &:-moz-placeholder { /* Firefox 18- */
       color: lighten(@bodycolour, 40%);
     }
-
     &::-moz-placeholder {  /* Firefox 19+ */
       color: lighten(@bodycolour, 40%);
     }
-
     &:-ms-input-placeholder {
       color: lighten(@bodycolour, 40%);
     }
@@ -1108,6 +1105,9 @@ ul.sortmenu{
 }
 .mobile-menu{
   display: none;
+}
+.tag-select{
+  width: 100%;
 }
 
 @media (max-width: 1200px) {
