@@ -14,7 +14,7 @@ Inquestion::Application.routes.draw do
       post 'vote' => 'answers#vote', as: :vote
       get 'accept' => 'answers#accept', as: :accept
     end
-    post 'vote' => 'questions#vote', as: :do_vote
+    post 'vote' => 'questions#vote', as: :do_vote 
     resources :comments
   end
 
@@ -27,6 +27,8 @@ Inquestion::Application.routes.draw do
     get 'make/user' => 'users#make_user', as: :make_user
     get 'ban' => 'users#ban', as: :ban
     post 'tags' => 'users#update_knowledge', as: :update_knowledge
+    get '/questions' => 'users#questions', as: :questions
+    get '/answers' => 'users#answers', as: :answers
   end
   resources :employers do
     resources :users
