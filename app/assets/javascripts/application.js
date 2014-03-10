@@ -208,7 +208,9 @@ function inquestion_frontend(){
 		self.open = function(){
 
 			self.isOpen = true;
-			self.elements.slideDown(300);
+			self.elements.slideDown(300, function(){
+				inquestionFrontend.notifications.responsivePosition();
+			});
 			self.target.html("Close Menu");
 
 		}
@@ -301,6 +303,9 @@ function inquestion_frontend(){
 				return false;
 
 			});
+			$(window).resize(function(event){
+				self.notifications.resize();
+			});
 			//Notifications clear button:
 			$("#notifications-clear").click(function(event){
 
@@ -389,6 +394,24 @@ function inquestion_frontend(){
 				});
 			}
 
+		},
+		resize: function(){
+
+			var popover = $("#notifications-popover");
+
+			if(parseInt($("#media").css("z-index")) > 800){
+				popover.attr("style", "");
+				popover.hide();
+			}
+			else{
+				//Find out where button is:
+				self.notifications.responsivePosition();
+			}
+
+		},
+		responsivePosition: function(){
+			var popover = $("#notifications-popover");
+			popover.css({"top": (($("#notifications").offset()).top + $("#notifications").outerHeight(true)), "right": "0px", "width": "100%"});
 		}
 	}
 	self.knowledgeAreas = {
