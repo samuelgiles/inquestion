@@ -697,6 +697,7 @@
 	var KEY_CMD       = IS_MAC ? 91 : 17;
 	var KEY_CTRL      = IS_MAC ? 18 : 17;
 	var KEY_TAB       = 9;
+	var KEY_SPACE     = 32;
 	
 	var TAG_SELECT    = 1;
 	var TAG_INPUT     = 2;
@@ -1461,9 +1462,16 @@
 					self.advanceSelection(1, e);
 					return;
 				case KEY_TAB:
-					if (self.settings.create && self.createItem()) {
-						e.preventDefault();
+					if (self.isOpen && self.$activeOption) {
+						self.onOptionSelect({currentTarget: self.$activeOption});
 					}
+					e.preventDefault();
+					return;
+				case KEY_SPACE:
+					if (self.isOpen && self.$activeOption) {
+						self.onOptionSelect({currentTarget: self.$activeOption});
+					}
+					e.preventDefault();
 					return;
 				case KEY_BACKSPACE:
 				case KEY_DELETE:
