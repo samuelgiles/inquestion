@@ -18,6 +18,13 @@ class UsersController < ApplicationController
 
 	end
 
+	def questions
+
+	end
+
+	def answers
+	end
+
 	respond_to :html, :json
 	def update
 

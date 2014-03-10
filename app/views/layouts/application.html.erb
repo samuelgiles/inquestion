@@ -45,8 +45,8 @@
 				<% if current_user.admin %>
 					<%=link_to "Admin", :admin_index, class: "button" %>&nbsp;
 				<% end %>
-				<a href="#" class="button ask">My Questions [5]</a>
-				<a href="#" class="button answer">My Answers [20]</a>
+				<%= link_to "My Questions [#{current_user.questions.count}]", user_questions_path(current_user), :class => "button ask" %>
+				<%= link_to "My Answers [#{current_user.answers.count}]", user_answers_path(current_user), :class => "button answer" %>
 				<a href="#" id="notifications" class="button">Notifications [<%= current_user.notifications.unseen.count %>]</a>
 				<%= link_to 'Profile', user_path(current_user), :class => "button secondary" %>
 				<%= link_to 'Logout', destroy_user_session_path, :class => "button secondary" %>
