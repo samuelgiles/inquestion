@@ -32,7 +32,11 @@ Inquestion::Application.routes.draw do
     resources :users
   end
 
-  resources :tags
+  resources :tags do
+
+  end
+
+  get 'suggest' => 'tags#suggest', as: :tags_suggest
 
   root 'application#index'
   get 'about' => 'application#about', as: :about_page

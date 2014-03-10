@@ -25,4 +25,15 @@ class TagsController < ApplicationController
 
 	end
 
+	def suggest
+
+		@tags = Tag.search(params[:q])
+		respond_to do |format|
+
+      		format.json { render json: {success: true, suggestions: @tags } }
+
+    	end
+
+	end
+
 end
