@@ -895,6 +895,13 @@ CREATE INDEX index_votes_on_user_id ON votes USING btree (user_id);
 
 
 --
+-- Name: questions_gin_title_and_content_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX questions_gin_title_and_content_idx ON questions USING gin (((to_tsvector('english'::regconfig, COALESCE((title)::text, ''::text)) || to_tsvector('english'::regconfig, COALESCE(content, ''::text)))));
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -968,3 +975,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140306003020');
 INSERT INTO schema_migrations (version) VALUES ('20140306011832');
 
 INSERT INTO schema_migrations (version) VALUES ('20140306220637');
+
+INSERT INTO schema_migrations (version) VALUES ('20140312204432');
