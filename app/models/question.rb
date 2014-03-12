@@ -5,12 +5,12 @@ class Question < ActiveRecord::Base
   	friendly_id :title, use: [:slugged, :finders]
 
 	belongs_to :user
-	has_many :answers
+	has_many :answers, :dependent => :destroy
 	belongs_to :accepted_answer, :class_name => "Answer", :foreign_key => :answer_id
 	
-	has_many :questiontags
+	has_many :questiontags, :dependent => :destroy
 	has_many :tags, through: :questiontags
-	has_many :votes
+	has_many :votes, :dependent => :destroy
 
 	validates :title, :presence => true
   	validates :content, :presence => true
