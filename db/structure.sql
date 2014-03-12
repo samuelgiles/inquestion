@@ -720,6 +720,13 @@ ALTER TABLE ONLY votes
 
 
 --
+-- Name: answers_gin_content_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX answers_gin_content_idx ON answers USING gin (to_tsvector('english'::regconfig, COALESCE(content, ''::text)));
+
+
+--
 -- Name: index_answer_votes_on_answer_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -977,3 +984,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140306011832');
 INSERT INTO schema_migrations (version) VALUES ('20140306220637');
 
 INSERT INTO schema_migrations (version) VALUES ('20140312204432');
+
+INSERT INTO schema_migrations (version) VALUES ('20140312211724');
