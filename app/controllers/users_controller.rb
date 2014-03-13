@@ -20,9 +20,24 @@ class UsersController < ApplicationController
 
 	def questions
 
+		if current_user.is_admin || current_user.id == params[:user_id]
+
+			@user = User.find(params[:user_id])
+			@questions = @user.questions.paginate(:page => params[:page], :per_page => 6)
+
+		end
+
 	end
 
 	def answers
+
+		if current_user.is_admin || current_user.id == params[:user_id]
+
+			@user = User.find(params[:user_id])
+			@answers = @user.answers.paginate(:page => params[:page], :per_page => 6)
+
+		end
+
 	end
 
 	respond_to :html, :json

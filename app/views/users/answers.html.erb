@@ -1,2 +1,43 @@
-<h2>The My Answers page is still being built :(</h2>
-<p>Apologies for any sad faces caused</p>
+<% content_for :head do %>
+  <title>inquestion - Answers - <%= @user.full_name %></title>
+<% end %>
+<div class="row">
+	<div class="col5">
+
+		<div class="col-element has-header answer has-option">
+			<h1><%= current_user.id == @user.id ? "Your" : ("#{@user.full_name}'s") %> Answers</h1>
+			<ul>
+				<% if @answers.count > 0 %>
+				<li><strong><%= @answers.count %></strong> answers</li>
+				<li>The most recent answer was <strong>submitted around <%= time_ago_in_words(@answers.last.updated_at) %> ago</strong></li>
+				<% end %>
+			</ul>
+		</div>
+
+	</div>
+	<div class="col7">
+
+		<div class="col-element has-header grey has-option">
+
+			<% if @answers.length > 0 %>
+				<ul class="question_list">
+
+					<% @answers.each do |a| %>
+						<%= render "questions/overview", :q => a.question %>
+						<ul class="answers">
+						<%= render "answers/answer", :a => a %>
+						</ul>
+					<% end %>
+
+				</ul>
+			<% else %>
+
+				<p>Unfortunately there don't appear to be any answers. Bummer.</p>
+
+			<% end %>
+
+			<%= will_paginate @answers %>
+		</div>
+
+	</div>
+</div>

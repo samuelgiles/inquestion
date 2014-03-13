@@ -40,10 +40,6 @@ class QuestionsController < ApplicationController
 
   end
 
-  #show all the questions a user has asked
-  def myquestions
-  end
-
   #display all
   def index
 
