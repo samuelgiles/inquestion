@@ -6,7 +6,9 @@
 	<div class="question-bottom">
 		<ul class="question-tags">
 			<% q.tags.each do |qt| %>
-			<li><%= link_to "#" + qt.title, qt %></li>
+				<% if qt.title != nil %>
+					<li><%= link_to "#" + qt.title, qt %></li>
+				<% end %>
 			<% end %>
 		</ul>
 		<span>- asked by <a href="#"><%= q.user.full_name %> - <%= time_ago_in_words(q.created_at) %> ago</a></span>

@@ -8,12 +8,16 @@ class Tag < ActiveRecord::Base
 	has_many :notifytags
 
 	def title=(val)
-		write_attribute(:title, val.downcase.gsub!("#", ""))
+		write_attribute(:title, Tag.sanitize_title(val))
 	end
 
 	include PgSearch
 	pg_search_scope :search, :against => {
     :title => 'A'
   	}, :using => { :trigram => { :threshold => 0.1 } }
+
+  	def self.sanitize_title(val)
+  		val.strip.downcase.gsub("#", "")
+  	end
 
 end

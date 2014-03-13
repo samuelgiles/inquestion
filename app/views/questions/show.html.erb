@@ -24,7 +24,9 @@
 		
 		<ul class="question-tags">
 			<% @question.tags.each do |t| %>
+				<% if t.title != nil %>
 				<li><%= link_to "#" + t.title, t %></li>
+				<% end %>
 			<% end %>
 		</ul>
 
