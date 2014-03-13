@@ -47,30 +47,29 @@ class QuestionsController < ApplicationController
   #display all
   def index
 
-    @question_count = Question.count
-    if @question_count > 0
-      @percent_answered = (Question.answered.count.to_f / @question_count.to_f * 100).round(0)
-    else
-      @percent_answered = 0
-    end
-    @tag_count = Tag.count
-    @last_question_updated_at = (Question.limit(1).order(:created_at).first).created_at
+    @search = false
+    get_index_info
 
     #sort types:
     #popular : questions measured by the number of answers in the last 6 weeks (this could change is service is popular)
     #new : questions by created_at
     #recently answered : get questions sorted by updated_at with accepted answers (touch question on accept answer)
-    
+
     if params.has_key?(:new)
       @sort_title = "New Questions"
-      @questions = Question.order(:created_at).limit(10)
+      @questions = Question.order(:created_at)
     elsif params.has_key?(:answered)
       @sort_title = "Answered Questions"
-      @questions = Question.answered.order(:updated_at).limit(10)
+      @questions = Question.answered.order(:updated_at)
+    elsif params[:query] != nil && params[:query] != ""
+      @search = true
+      @questions = Question.search(params[:query])
     else
       @sort_title = "Popular Questions"
-      @questions = Question.popular.limit(10)
+      @questions = Question.popular
     end
+
+    @questions = @questions.paginate(:page => params[:page], :per_page => 6)
 
   end
 
@@ -107,6 +106,19 @@ class QuestionsController < ApplicationController
     @answers = Answer.search(params[:search])
 
     render :layout => false
+
+  end
+
+  def get_index_info
+
+    @question_count = Question.count
+    if @question_count > 0
+      @percent_answered = (Question.answered.count.to_f / @question_count.to_f * 100).round(0)
+    else
+      @percent_answered = 0
+    end
+    @tag_count = Tag.count
+    @last_question_updated_at = (Question.limit(1).order(:created_at).first).created_at
 
   end
 

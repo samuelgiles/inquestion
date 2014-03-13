@@ -110,6 +110,12 @@ function inquestion_frontend(){
 			new self.vote($(this));
 		})
 
+		$("#search input").keypress(function(e) {
+	        if(e.which == 13) {
+	            $("#search").submit();
+	        }
+	    });
+
 		$(".datepicker").datepicker();
 
 		self.knowledgeAreas.init();
