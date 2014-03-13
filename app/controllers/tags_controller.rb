@@ -12,15 +12,15 @@ class TagsController < ApplicationController
 		if params.has_key?(:new)
 	      @sort_title = "New Questions"
 	      @sort_title_short = "New"
-	      @questions = Question.has_tag(@tag.title).order(:created_at).paginate(:page => params[:page], :per_page => 3)
+	      @questions = Question.has_tag(@tag.title).order(:created_at).paginate(:page => params[:page], :per_page => 6)
 	    elsif params.has_key?(:answered)
 	      @sort_title = "Answered Questions"
 	      @sort_title_short = "Answered"
-	      @questions = Question.has_tag(@tag.title).answered.top_voted.order(:updated_at).paginate(:page => params[:page], :per_page => 3)
+	      @questions = Question.has_tag(@tag.title).answered.top_voted.order(:updated_at).paginate(:page => params[:page], :per_page => 6)
 	    else
 	      @sort_title = "Popular Questions"
 	      @sort_title_short = "Popular"
-	      @questions = Question.has_tag(@tag.title).top_voted.paginate(:page => params[:page], :per_page => 3)
+	      @questions = Question.has_tag(@tag.title).top_voted.paginate(:page => params[:page], :per_page => 6)
 	    end
 
 	end
