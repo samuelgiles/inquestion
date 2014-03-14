@@ -1,4 +1,4 @@
 class AnswerVote < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :answer
+  belongs_to :user, touch: true
+  belongs_to :answer, touch: true
 end

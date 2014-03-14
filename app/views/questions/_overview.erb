@@ -1,3 +1,4 @@
+<% cache q do %>
 <li class="question">
 	<div class="question-top">
 		<%= link_to ("+" + q.votes.count.to_s), question_do_vote_path(q), :class => "question-votes vote" %><h3><%= link_to q.title, q %></h3>
@@ -14,3 +15,4 @@
 		<span>- asked by <a href="#"><%= q.user.full_name %> - <%= time_ago_in_words(q.created_at) %> ago</a></span>
 	</div>
 </li>
+<% end %>

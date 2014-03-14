@@ -1,7 +1,7 @@
 class Answer < ActiveRecord::Base
   include Rails.application.routes.url_helpers
-  belongs_to :question
-  belongs_to :user
+  belongs_to :question, touch: true
+  belongs_to :user, touch: true
 
   has_many :votes, :class_name => "AnswerVote"
   scope :has_vote_from, lambda {|userid| joins(:votes).where("answer_votes.user_id = ?", userid )}

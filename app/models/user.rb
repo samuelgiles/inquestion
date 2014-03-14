@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   has_many :notifications
   has_many :authored_notifications, :class_name => "Notification", :foreign_key => "author_id"
 
-  belongs_to :employer
+  belongs_to :employer, touch: true
 
   scope :admins, lambda { where("users.admin = true OR users.coordinator = true") }
   scope :coordinators, lambda { where("users.coordinator = true") }
