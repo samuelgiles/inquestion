@@ -30,10 +30,6 @@
 			<% end %>
 		</ul>
 
-		<p class="question-votes-detail">
-			<a href="#" class="btn ask">[+<%= @question.votes.count %>] Click here to vote for this question <%= @question.answered ? " to be answered" : "" %></a>
-		</p>
-
 	</div>
 
 	<% if current_user.try(:is_admin) %>

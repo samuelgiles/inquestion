@@ -36,4 +36,29 @@ class Admin::UsersController < Admin::AdminController
 
 	end
 
+	#invite:
+	def new
+
+	end
+
+	def create
+		
+		#split emails, try to eliminate duplicates, pretty basic
+		invite_emails = params[:emails].split(/,/).map(&:strip).uniq
+
+		if invite_emails.length > 0
+
+			invite_emails.each do |invite_email|
+				UserMailer.invite(invite_email, current_user).deliver
+			end
+
+			flash[:notice] = "#{invite_emails.length} email#{invite_emails.length == 1 ? "" : "s"} sent successfully"
+		else
+			flash[:notice] = "You didn't enter any email addresses"
+		end
+		
+		redirect_to new_admin_user_path
+
+	end
+
 end

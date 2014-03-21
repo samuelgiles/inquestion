@@ -3,5 +3,10 @@
 		<h2 class="">Admin - Invite User</h2>
 		<p class="sub-header">Type a comma seperated list of email addresses, users will be emailed a message informing them of inquestion and how it can help them.</p>
 		
+		<%= form_tag(admin_users_path, method: "post") do %>
+		<%= text_field_tag(:emails, nil, :placeholder => "e.g. sam@zion.co.uk, sam@samuelgil.es") %>
+		<%= submit_tag("Send") %>
+		<% end %>
+
 	</div>
 <% end %>

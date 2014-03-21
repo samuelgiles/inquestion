@@ -50,12 +50,17 @@ Inquestion::Application.routes.draw do
   get 'notifications' => 'notifications#index', as: :notification_index
   post 'notifications/clear' => 'notifications#clear', as: :notification_clear
   post 'solver' => 'questions#solver', as: :question_solver
+  get 'search' => 'questions#search', as: :question_search
 
   namespace :admin do
     get '/' => 'admin#admin', as: :index
     resources :users
     resources :questions
     resources :employers
+  end
+
+  if Rails.env.development?
+    mount MailPreview => 'mail_view'
   end
 
 
