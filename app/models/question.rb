@@ -6,7 +6,7 @@ class Question < ActiveRecord::Base
 
 	belongs_to :user, touch: true
 	has_many :answers, :dependent => :destroy
-	belongs_to :accepted_answer, :class_name => "Answer", :foreign_key => :answer_id, touch: true
+	belongs_to :accepted_answer, :class_name => "Answer", :foreign_key => :answer_id
 	
 	has_many :questiontags, :dependent => :destroy
 	has_many :tags, through: :questiontags
