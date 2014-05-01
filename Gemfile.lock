@@ -47,6 +47,13 @@ GIT
       jquery-rails
       rails (>= 3.1)
 
+GIT
+  remote: https://github.com/basecamp/mail_view.git
+  revision: a40a141b1cc59196c890932304c639e9c8e35045
+  specs:
+    mail_view (2.0.4)
+      tilt
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -257,6 +264,7 @@ DEPENDENCIES
   jquery-turbolinks
   jquery-ui-rails
   less-rails
+  mail_view!
   meta_request
   newrelic_rpm
   normalize-rails
