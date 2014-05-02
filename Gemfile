@@ -57,8 +57,9 @@ group :development do
   gem "binding_of_caller"
   gem 'meta_request'
   gem "capistrano", "~> 2.11"
-  gem 'mail_view', :git => 'https://github.com/basecamp/mail_view.git'
 end
+
+gem 'mail_view', :git => 'https://github.com/basecamp/mail_view.git'
 
 
 # Use ActiveModel has_secure_password
